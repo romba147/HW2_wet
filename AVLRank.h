@@ -626,7 +626,73 @@ public:
 
     int findRank (T* data)
     {
-        
+        auto rank = new int;
+        auto reqNode = findMaxNode(data);
+        findRankAux(this->root,reqNode->data, rank);
+        int to_return = *rank;
+        return to_return;
+    }
+
+    void findRankAux (node<T>* r,T* data, int* rank)
+    {
+        {
+            if (r == nullptr)
+            {
+                return;
+            }
+
+            if (*(data) == *(r->data))
+            {
+                *(rank) = *(rank)+r->left->sonsNum+1;
+                return;
+            }
+
+            else if (*(data) < *(r->data))
+            {
+                findRankAux(r->left,data,rank);
+            }
+            else if ((*(data) > *(r->data)))
+            {
+                *(rank) = *(rank)+r->left->sonsNum+1;
+                findRankAux(r->right,data,rank);
+            }
+            return;
+        }
+    }
+
+    int findGradesBelow (T* data)
+    {
+        auto grades = new int;
+        findGradesAux(this->root,data, grades);
+        int to_return = *grades;
+        return to_return;
+    }
+
+    void findGradesAux (node<T>* r,T* data, int* grades)
+    {
+        {
+            if (r == nullptr)
+            {
+                return;
+            }
+
+            if (*(data) == *(r->data))
+            {
+                *(grades) = *(grades)+r->left->sonsGradesSum+r->grade;
+                return;
+            }
+
+            else if (*(data) < *(r->data))
+            {
+                findRankAux(r->left,data,grades);
+            }
+            else if ((*(data) > *(r->data)))
+            {
+                *(grades) = *(grades)+r->left->sonsGradesSum+r->grade;
+                findRankAux(r->right,data,grades);
+            }
+            return;
+        }
     }
 };
 
