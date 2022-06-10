@@ -25,8 +25,9 @@ struct node {
         left = nullptr;
         right = nullptr;
         height = 0;
-        sonsNum =0;
+        sonsNum =1;
         this->grade = grade;
+        this->sonsGradesSum = grade;
     }
 };
 
@@ -77,7 +78,7 @@ public:
         }
         if (top->right == nullptr && top->left == nullptr)
         {
-            top->sonsNum = 0;
+            top->sonsNum = 1;
             top->sonsGradesSum = top->grade;
 
             return;
@@ -94,7 +95,7 @@ public:
             top->sonsGradesSum = top->right->sonsGradesSum + top->grade;
             return;
         }
-        top->sonsNum = top->right->sonsNum + top->left->sonsNum +2;
+        top->sonsNum = top->right->sonsNum + top->left->sonsNum +1;
         top->sonsGradesSum = top->right->sonsGradesSum + top->left->sonsGradesSum + top->grade;
 
     }
@@ -192,9 +193,9 @@ public:
         }
         else{
             if (*(data) < *(r->data))
-                r->left = insertAux(r->left,data);
+                r->left = insertAux(r->left,data,grade);
             else
-                r->right = insertAux(r->right,data);
+                r->right = insertAux(r->right,data,grade);
         }
 
         r->height = calHeight(r);
@@ -213,7 +214,7 @@ public:
         }
 
         updateSonsNum(r->left);
-        updateHeight(r->right);
+        updateSonsNum(r->right);
         updateSonsNum(r);
 
         return r;
@@ -571,18 +572,18 @@ public:
             return nullptr;
         }
 
-        if (*(data) == *(r->data) || r->right == nullptr || *(data) < *(r->right->data))
+        if (*(data) == *(r->data) || r->right == nullptr || ((*(data) < *(r->right->data)) && (*(data)> *(r->data))))
         {
             return r;
         }
 
         else if (*(data) < *(r->data))
         {
-            return findMaxNode(r->left,data);
+            return findMaxNodeAux(r->left,data);
         }
         else if ((*(data) > *(r->data)))
         {
-            return  findMaxNode(r->right,data);
+            return  findMaxNodeAux(r->right,data);
         }
         return nullptr;
     }
@@ -626,7 +627,7 @@ public:
 
     int findRank (T* data)
     {
-        auto rank = new int;
+        auto rank = new int (0);
         auto reqNode = findMaxNode(data);
         findRankAux(this->root,reqNode->data, rank);
         int to_return = *rank;
@@ -643,7 +644,12 @@ public:
 
             if (*(data) == *(r->data))
             {
-                *(rank) = *(rank)+r->left->sonsNum+1;
+                if (r->left) {
+                    *(rank) = *(rank) + r->left->sonsNum + 1;
+                }
+                else{
+                    *(rank) = *(rank)+1;
+                }
                 return;
             }
 
@@ -653,7 +659,12 @@ public:
             }
             else if ((*(data) > *(r->data)))
             {
-                *(rank) = *(rank)+r->left->sonsNum+1;
+                if (r->left) {
+                    *(rank) = *(rank) + r->left->sonsNum + 1;
+                }
+                else{
+                    *(rank) = *(rank)+1;
+                }
                 findRankAux(r->right,data,rank);
             }
             return;
@@ -662,7 +673,7 @@ public:
 
     int findGradesBelow (T* data)
     {
-        auto grades = new int;
+        auto grades = new int (0);
         findGradesAux(this->root,data, grades);
         int to_return = *grades;
         return to_return;
@@ -678,18 +689,30 @@ public:
 
             if (*(data) == *(r->data))
             {
-                *(grades) = *(grades)+r->left->sonsGradesSum+r->grade;
+                if (r->left) {
+                    *(grades) = *(grades) + r->left->sonsGradesSum + r->grade;
+                }
+                else
+                {
+                    *(grades) = *(grades) + r->grade;
+                }
                 return;
             }
 
             else if (*(data) < *(r->data))
             {
-                findRankAux(r->left,data,grades);
+                findGradesAux(r->left,data,grades);
             }
             else if ((*(data) > *(r->data)))
             {
-                *(grades) = *(grades)+r->left->sonsGradesSum+r->grade;
-                findRankAux(r->right,data,grades);
+                if (r->left) {
+                    *(grades) = *(grades) + r->left->sonsGradesSum + r->grade;
+                }
+                else
+                {
+                    *(grades) = *(grades) + r->grade;
+                }
+                findGradesAux(r->right,data,grades);
             }
             return;
         }
