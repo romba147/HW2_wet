@@ -59,8 +59,17 @@ StatusType EmployeeManager::RemoveEmployee(int employeeID)
     {
         return INVALID_INPUT;
     }
-    if (companyArray[0]->findEmployee())
 
+    Employee* toRemoveEmp = getEmployee(employeeID);
+    if(toRemoveEmp== nullptr)
+    {
+        return FAILURE;
+    }
+
+    companyArray[0]->removeEmployee(toRemoveEmp);
+    companyArray[toRemoveEmp->getCompany()]->removeEmployee(toRemoveEmp);
+
+    return SUCCESS;
 }
 
 StatusType EmployeeManager::PromoteEmployee(int employeeID, int bumpGrade)
