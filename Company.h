@@ -46,6 +46,16 @@ public:
         return *this;
     }
 
+    Employee* findEmployee (Employee* req_employee)
+    {
+        auto to_return =  employees->find(req_employee);
+        if (!to_return)
+        {
+            return nullptr;
+        }
+        return to_return->data;
+    }
+
 
     Company& addEmployee (Employee* employee)
     {
