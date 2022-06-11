@@ -56,7 +56,8 @@ public:
         {
             id[root2] = id[root1];
             sizes[root1] = sizes[root1] + sizes[root2];
-            bumps[g2] += factor*(values[g2]);
+            bumps[g1] += factor*(values[g2]);
+            bumps[g2] += -bumps[g1];
             values[g1] += factor*(values[g2]);
         }
         else
