@@ -45,9 +45,9 @@ StatusType EmployeeManager::AddEmployee(int employeeID, int companyID, int grade
         return FAILURE;
     }
 
-    Employee* newEmployee = new Employee(employeeID,0,grade,0);
-    companyArray[0]->addEmployee()
-
+    Employee* newEmployee = new Employee(employeeID,0,grade,companyID);
+    companyArray[0]->addEmployee(newEmployee);
+    getCompany(companyID)->addEmployee(newEmployee);
 
     return SUCCESS;
 

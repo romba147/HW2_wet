@@ -60,6 +60,7 @@ public:
     Company& addEmployee (Employee* employee)
     {
         employees->insert(employee);
+        GradesNum+=employee->getGrade();
         return *this;
     }
 
