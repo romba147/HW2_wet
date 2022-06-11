@@ -748,7 +748,10 @@ public:
 
     int getGradesSum()
     {
-        return this->root->sonsGradesSum;
+        if (root) {
+            return this->root->sonsGradesSum;
+        }
+        return 0;
     }
 };
 

@@ -49,7 +49,7 @@ public:
             *(sumBumps) += bumps[root];
             return root;
         }
-        int to_return = find(id[root], sumBumps);
+        int to_return = findAux(id[root], sumBumps);
         *(sumBumps) += bumps[root];
         bumps[root] = *(sumBumps);
         id[root] = to_return;
@@ -60,9 +60,9 @@ public:
     void merge(int g1 , int g2, double factor)
     {
         auto sumBumps = new double (0);
-        int root1 = find(g1,sumBumps);
+        int root1 = find(g1);
         *sumBumps=0;
-        int root2 = find(g2,sumBumps);
+        int root2 = find(g2);
         if (root2 == root1) return;
         if (sizes[root1] > sizes[root2])
         {
@@ -89,16 +89,15 @@ public:
     }
     int getGroupSize(int group)
     {
-        auto n = new double(0);
-        int root = find(group,n);
-        delete n;
+        int root = find(group);
         return sizes[root];
     }
     double getValue(int n)
     {
         int to_return = 0;
         auto sum = new double (0);
-        find(n , sum);
+        findAux(n , sum);
+        delete sum;
         return values[n] + *(sum);
 
     }

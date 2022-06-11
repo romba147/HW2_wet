@@ -30,9 +30,18 @@ public:
         return this->id;
     }
 
+    int getEmployeesNum() const
+    {
+        return this->employees->nElements;
+    }
+
     float getValue () const
     {
         return value;
+    }
+    int getGradesNum() const
+    {
+        return GradesNum;
     }
 
 

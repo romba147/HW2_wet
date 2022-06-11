@@ -141,11 +141,31 @@ StatusType EmployeeManager::AverageBumpGradeBetweenSalaryByGroup(int companyID, 
     ///calculate number of employees in range
     auto* dummy_emplpoyee = new Employee (99999999,higherSalary , 0,0);
     int elements_below_max = tree->findRank(dummy_emplpoyee);
+    int grades_below_max = tree->findGradesBelow(dummy_emplpoyee);
     if (lowerSalary == 0)
     {
-        elements_below_max =
+        elements_below_max += (reqCompany->getEmployeesNum() - tree->size);
+        grades_below_max += (reqCompany->getGradesNum() - tree->getGradesSum());
     }
-    int
+    delete dummy_emplpoyee;
+    auto* dummy_emplpoyee2 = new Employee (0,lowerSalary , 0,0);
+    Employee *low_employee;
+    int elements_below_min =0;
+    int grades_below_min =0;
+    if(tree->findMinNode(dummy_emplpoyee2)) {
+        low_employee = tree->findMinNode(dummy_emplpoyee2)->data;
+        below_min = tree->findRank(low_employee) - 1;
+        grades_below_min = tree->findGradesBelow(low_employee) - tree->findMinNode(dummy_emplpoyee2)->grade;
+    }
+
+    int total_num = elements_below_max - elements_below_min;
+    if (total_num == 0)
+    {
+        return FAILURE;
+    }
+    int total_grades = grades_below_max - grades_below_min;
+
+
 
 
 }
