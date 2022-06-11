@@ -36,7 +36,13 @@ public:
         delete sizes;
     }
 
-    int find (int root ,double *sumBumps)
+    int find (int root)
+    {
+        double sumBumps =0;
+        return findAux(root, &sumBumps);
+    }
+
+    int findAux (int root ,double *sumBumps)
     {
         if (id[root] == root)
         {
@@ -49,6 +55,7 @@ public:
         id[root] = to_return;
         return to_return;
     }
+
 
     void merge(int g1 , int g2, double factor)
     {

@@ -19,7 +19,7 @@ public:
     /** EmployeeManager Members **/
     Company** companyArray;
     UF* companyUF;
-    Company* systemCompany;
+    //Company* systemCompany;
     int size;
 
     /** EmployeeManager Methods **/
@@ -33,8 +33,9 @@ public:
         size = k;
 
         //init companyArray
-        companyArray = new Company*[k];
-        for (int i = 0; i < k; ++i)
+        //element 0 is the general company
+        companyArray = new Company*[k+1];
+        for (int i = 0; i < k+1; ++i)
         {
             companyArray[i] = new Company(i,i);
         }
@@ -43,7 +44,7 @@ public:
         companyUF = new UF(k);
 
         //init systemCompany
-        systemCompany = new Company(0, 0);
+        //systemCompany = new Company(0, 0);
     }
 
     ~EmployeeManager()
@@ -56,7 +57,7 @@ public:
 
     Company* getCompany (int n)
     {
-
+        return companyArray[companyUF->find(n)];
     }
 
     Employee* getEmployee (int  id);
