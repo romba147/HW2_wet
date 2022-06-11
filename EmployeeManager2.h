@@ -4,31 +4,76 @@
 
 #ifndef HW2_WET_EMPLOYEEMANAGER2_H
 #define HW2_WET_EMPLOYEEMANAGER2_H
-#include "library2.h"
+#include "HashTable1.h"
+#include "LIst1.h"
+#include "Company.h"
+#include "UF.h"
+#include "AVLRank.h"
+#include "Employee.h"
 
-void *Init(int k);
+class EmployeeManager
+{
 
-StatusType AddEmployee(int employeeID, int companyID, int grade);
+public:
+    /** EmployeeManager Members **/
+    Company** companyArray;
+    UF* companyUF;
+    Company* systemCompany;
 
-StatusType RemoveEmployee(int employeeID);
+    /** EmployeeManager Methods **/
 
-StatusType AcquireCompany(int companyID1, int companyID2, double factor);
+    //default c'tor:
+    EmployeeManager()=delete;
 
-StatusType EmployeeSalaryIncrease(int employeeID, int salaryIncrease);
+    //user c'tor
+    EmployeeManager(int k)
+    {
+        //init companyArray
+        companyArray = new Company*[k];
+        for (int i = 0; i < k; ++i)
+        {
+            companyArray[i] = new Company(i,i);
+        }
 
-StatusType PromoteEmployee(int employeeID, int bumpGrade);
+        //init companyUF
+        companyUF = new UF(k);
 
-StatusType SumOfBumpGradeBetweenTopWorkersByGroup(int companyID, int m);
+        //init systemCompany
+        systemCompany = new Company(0, 0);
+    }
 
-StatusType AverageBumpGradeBetweenSalaryByGroup(int companyID, int lowerSalary, int higherSalary);
+    Company* getCompany (int n);
 
-StatusType CompanyValue(int companyID);
+    Employee* getEmployee (int  id);
+
+    StatusType AddEmployee(int employeeID, int companyID, int grade);
+
+    StatusType RemoveEmployee(int employeeID);
+
+    StatusType AcquireCompany(int companyID1, int companyID2, double factor);
+
+    StatusType EmployeeSalaryIncrease(int employeeID, int salaryIncrease);
+
+    StatusType PromoteEmployee(int employeeID, int bumpGrade);
+
+    StatusType SumOfBumpGradeBetweenTopWorkersByGroup(int companyID, int m);
+
+    StatusType AverageBumpGradeBetweenSalaryByGroup(int companyID, int lowerSalary, int higherSalary);
+
+    StatusType CompanyValue(int companyID);
+
+
+
+};
+
+
+
+
 
 /**
  * 20 point Bonus function:
 StatusType BumpGradeToEmployees(void *DS, int lowerSalary, int higherSalary, int bumpGrade);
  **/
 
-void Quit();
 
 #endif //HW2_WET_EMPLOYEEMANAGER2_H

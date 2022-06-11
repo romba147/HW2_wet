@@ -2,104 +2,54 @@
 // Created by Omer Meushar on 11/06/2022.
 //
 
-#include "library2.h"
-#include "HashTable1.h"
-#include "LIst1.h"
-#include "Company.h"
-#include "UF.h"
-#include "AVLRank.h"
-#include "Employee.h"
+#include "EmployeeManager2.h"
 
-class EmployeeManager
-{
-
-public:
-    /** EmployeeManager Members **/
-    Company** companyArray;
-    UF* companyUF;
-    Company* systemCompany;
-
-    /** EmployeeManager Methods **/
-
-    //default c'tor:
-    EmployeeManager()=delete;
-
-    //user c'tor
-    EmployeeManager(int k)
-    {
-        //init companyArray
-        companyArray = new Company*[k];
-        for (int i = 0; i < k; ++i)
-        {
-            companyArray[i] = new Company(i,i);
-        }
-
-        //init companyUF
-        companyUF = new UF(k);
-
-        //init systemCompany
-        systemCompany = new Company(0, 0);
-    }
-
-
-
-};
-
-void *Init(int k)
-{
-    if(k<=0)
-    {
-        ///return FAILURE;
-    }
-
-}
-
-StatusType AddEmployee(int employeeID, int companyID, int grade)
+Company *EmployeeManager::getCompany(int n)
 {
 
 }
 
-StatusType RemoveEmployee(int employeeID)
+Employee *EmployeeManager::getEmployee(int id)
 {
 
 }
 
-StatusType AcquireCompany(int companyID1, int companyID2, double factor)
+int EmployeeManager::AddEmployee(int employeeID, int companyID, int grade)
 {
 
 }
 
-StatusType EmployeeSalaryIncrease(int employeeID, int salaryIncrease)
+int EmployeeManager::RemoveEmployee(int employeeID)
 {
 
 }
 
-StatusType PromoteEmployee(int employeeID, int bumpGrade)
+int EmployeeManager::PromoteEmployee(int employeeID, int bumpGrade)
 {
 
 }
 
-StatusType SumOfBumpGradeBetweenTopWorkersByGroup(int companyID, int m)
+int EmployeeManager::EmployeeSalaryIncrease(int employeeID, int salaryIncrease)
 {
 
 }
 
-StatusType AverageBumpGradeBetweenSalaryByGroup(int companyID, int lowerSalary, int higherSalary)
+int EmployeeManager::AcquireCompany(int companyID1, int companyID2, double factor)
 {
 
 }
 
-StatusType CompanyValue(int companyID)
+int EmployeeManager::SumOfBumpGradeBetweenTopWorkersByGroup(int companyID, int m)
 {
 
 }
 
-/**
- * 20 point Bonus function:
-StatusType BumpGradeToEmployees(void *DS, int lowerSalary, int higherSalary, int bumpGrade);
- **/
+int EmployeeManager::AverageBumpGradeBetweenSalaryByGroup(int companyID, int lowerSalary, int higherSalary)
+{
 
-void Quit()
+}
+
+int EmployeeManager::CompanyValue(int companyID)
 {
 
 }

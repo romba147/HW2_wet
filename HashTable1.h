@@ -14,7 +14,7 @@
 //    INVALID_INPUT_HASH = -3
 //} HashStatus;
 
-#include "Omer_dummyLib.h" ///delete after!!!
+#include "dummy_lib.h" ///delete after!!!
 
 template<class T>
 class HashTable
@@ -204,95 +204,7 @@ public:
         nElements = 0;
     }
 
-    void addHash(HashTable<T>* hAdded)
-    {
-
-        for (int i = 0; i < hAdded->nCells; ++i)
-        {
-            listNode<T>* curNode = hAdded->table[i]->head->next;
-            while (curNode)
-            {
-                insert(curNode->data);
-                //int newIdx = hashFunc(curNode->data); // nCells is ok
-                //table[newIdx]->insertHead(curNode->data);
-                curNode = curNode->next;
-            }
-        }
-    }
-
-
 };
-
-template<class T>
-void unite(HashTable<T>* h1, HashTable<T>* h2)
-{
-
-    HashTable<T>* hBig, * hSmall;
-    if (h1->nElements >= h2->nElements)
-    {
-        hBig = h1;
-        hSmall = h2;
-    }
-    else
-    {
-        hBig = h2;
-        hSmall = h1;
-    }
-
-    hBig->addHash(hSmall);
-    delete hSmall;
-
-}
-
-/*
-template<class T>
-void unite(HashTable<T>* hBase, HashTable<T>* hAdded)
-{
-    int newNElements = hBase->nElements + hAdded->nElements;
-    int newNCells = MIN_HASH_SIZE;
-    while (newNElements>=newNCells)
-    {
-        newNCells *= 2;
-    }
-
-    HashTable<T>* hNew= new HashTable<T>*(newNCells);
-    ///do we need this loop?
-    for (int i = 0; i < newNCells; ++i)
-    {
-        hNew->table[i] = new List<T>();
-    }
-
-    for (int i = 0; i < hBase; ++i)
-    {
-        listNode<T>* curNode = hBase->table[i]->head->next;
-        while (curNode)
-        {
-            int newIdx = hNew->hashFunc(curNode->data); // nCells is ok
-            hNew->table[newIdx]->insertHead(curNode->data);
-            curNode = curNode->next;
-        }
-    }
-
-    for (int i = 0; i < hAdded; ++i)
-    {
-        listNode<T>* curNode = hAdded->table[i]->head->next;
-        while (curNode)
-        {
-            int newIdx = hNew->hashFunc(curNode->data); // nCells is ok
-            hNew->table[newIdx]->insertHead(curNode->data);
-            curNode = curNode->next;
-        }
-    }
-
-    delete[] hBase->table;
-    hBase->table = hNew->table;
-    hBase->nElements = newNElements;
-    hBase->nCells = newNCells;
-
-}*/
-
-
-
 
 
 
