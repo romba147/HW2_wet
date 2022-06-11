@@ -62,6 +62,23 @@ StatusType EmployeeManager::PromoteEmployee(int employeeID, int bumpGrade)
 
 }
 
+StatusType EmployeeManager::PromoteEmployee(int employeeID, int bumpGrade)
+{
+    if (employeeID <=0)
+    {
+        return INVALID_INPUT;
+    }
+    Employee* req_employee = getEmployee(employeeID);
+    if (req_employee == nullptr)
+    {
+        return FAILURE;
+    }
+    req_employee->BumpGrade(bumpGrade);
+    companyArray[req_employee->getCompany()]->employeeGradeWasChanged(req_employee, bumpGrade);
+    return SUCCESS;
+
+}
+
 StatusType EmployeeManager::EmployeeSalaryIncrease(int employeeID, int salaryIncrease)
 {
     if (employeeID < =0)
