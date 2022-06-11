@@ -7,6 +7,7 @@
 #include <iostream>
 #include "Employee.h"
 #include "AVLRank.h"
+#include "HashTable.h"
 
 
 
@@ -14,6 +15,7 @@ class Company {
     int id;
     int value;
     AVLRankTree<Employee>* salary_tree;
+
 public:
     Company(int id , int value) : id(id) , value(value) {
         salary_tree = new AVLRankTree<Employee>();
