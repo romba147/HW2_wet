@@ -55,10 +55,7 @@ public:
         }
     }
 
-    Company* getCompany (int n)
-    {
-        return companyArray[companyUF->find(n)];
-    }
+    Company* getCompany (int n);
 
     Employee* getEmployee (int  id);
 

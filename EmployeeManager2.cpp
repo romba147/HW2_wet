@@ -24,32 +24,32 @@ int EmployeeManager::RemoveEmployee(int employeeID)
 
 }
 
-int EmployeeManager::PromoteEmployee(int employeeID, int bumpGrade)
+StatusType EmployeeManager::PromoteEmployee(int employeeID, int bumpGrade)
 {
 
 }
 
-int EmployeeManager::EmployeeSalaryIncrease(int employeeID, int salaryIncrease)
+StatusType EmployeeManager::EmployeeSalaryIncrease(int employeeID, int salaryIncrease)
 {
 
 }
 
-int EmployeeManager::AcquireCompany(int companyID1, int companyID2, double factor)
+StatusType EmployeeManager::AcquireCompany(int companyID1, int companyID2, double factor)
 {
 
 }
 
-int EmployeeManager::SumOfBumpGradeBetweenTopWorkersByGroup(int companyID, int m)
+StatusType EmployeeManager::SumOfBumpGradeBetweenTopWorkersByGroup(int companyID, int m)
 {
 
 }
 
-int EmployeeManager::AverageBumpGradeBetweenSalaryByGroup(int companyID, int lowerSalary, int higherSalary)
+StatusType EmployeeManager::AverageBumpGradeBetweenSalaryByGroup(int companyID, int lowerSalary, int higherSalary)
 {
 
 }
 
-int EmployeeManager::CompanyValue(int companyID)
+StatusType EmployeeManager::CompanyValue(int companyID)
 {
 
 }
