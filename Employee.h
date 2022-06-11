@@ -59,6 +59,11 @@ public:
         }
         return this->salary > emp1.salary;
     }
+
+    virtual int operator % (int num) const
+    {
+        return (this->id % num);
+    }
 };
 
 
