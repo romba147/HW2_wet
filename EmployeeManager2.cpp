@@ -17,7 +17,6 @@ Company *EmployeeManager::getCompany(int n)
     }
     to_return = this->companyUF->find(n);
     return  this->companyArray[to_return];
-
 }
 
 Employee *EmployeeManager::getEmployee(int id)
@@ -106,8 +105,49 @@ StatusType EmployeeManager::EmployeeSalaryIncrease(int employeeID, int salaryInc
     return SUCCESS;
 }
 
-StatusType EmployeeManager::AcquireCompany(int companyID1, int companyID2, double factor)
+void EmployeeManager::updateCompanyAfterAcquire(Company* company)
 {
+    HashTable<Employee>* empHash = company->getEmployeesHT();
+    int companyID = companyUF->find(company->getId());
+
+    int newGrades=0;
+    for (int i = 0; i < empHash->nCells; ++i)
+    {
+        listNode<Employee>* curNode = empHash->table[i]->head->next;
+        while (curNode)
+        {
+            curNode->data->setCompany(companyID);
+            newGrades+=curNode->data->getGrade();
+            curNode=curNode->next;
+        }
+    }
+    company->setGradesNum(newGrades);
+}
+
+StatusType EmployeeManager::AcquireCompany(int acquirerID, int targetID, double factor)
+{
+    if(acquirerID <= 0 || acquirerID > size || targetID <= 0 || targetID > size ||
+    (getCompany(acquirerID) == getCompany(targetID)) || factor <= 0.0)
+    {
+        return INVALID_INPUT;
+    }
+
+    //int realAcquirerID = companyUF->find(acquirerID);
+    Company* acquirerCompany = getCompany(acquirerID);
+    Company* targetCompany = getCompany(targetID);
+
+    companyUF->merge(acquirerID,targetID,factor); ///did that update company values?
+    unite(acquirerCompany->getEmployeesHT(),targetCompany->getEmployeesHT());
+    updateCompanyAfterAcquire(acquirerCompany);
+    ///unite trees?
+    ///create a new tree?
+    AVLRankTree<Employee>* newTree = new AVLRankTree<Employee>;
+    uniteTrees(acquirerCompany->getSalaryTree(),targetCompany->getSalaryTree(),newTree);
+    delete acquirerCompany->getSalaryTree();
+    delete targetCompany->getSalaryTree();
+    acquirerCompany->setSalaryTree(newTree);
+
+
 
 }
 

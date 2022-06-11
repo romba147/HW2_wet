@@ -44,9 +44,22 @@ public:
         return GradesNum;
     }
 
+    void setGradesNum(int n)
+    {
+        GradesNum = n;
+    }
+
+    void setSalaryTree(AVLRankTree<Employee>* tree)
+    {
+        salary_tree = tree;
+    }
 
     AVLRankTree<Employee>* getSalaryTree () const {
         return salary_tree;
+    }
+
+    HashTable<Employee>* getEmployeesHT () const {
+        return employees;
     }
 
     Company& setValue(float num)
@@ -72,6 +85,9 @@ public:
         GradesNum+=employee->getGrade();
         return *this;
     }
+
+
+
 
     Company& employeeSalaryChanged(Employee* employee, bool was_zero)
     {
@@ -105,6 +121,8 @@ public:
         return *this;
     }
 
+
+
     bool operator == (const Company& cmp1) const {
         return this->id == cmp1.id;
     }
@@ -120,6 +138,7 @@ public:
         salary_tree->deleteAllNodes(salary_tree->root);
         delete salary_tree;
     }
+
 
 
 

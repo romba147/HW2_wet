@@ -59,6 +59,8 @@ public:
 
     Employee* getEmployee (int  id);
 
+    void updateCompanyAfterAcquire(Company* company);
+
     StatusType AddEmployee(int employeeID, int companyID, int grade);
 
     StatusType RemoveEmployee(int employeeID);

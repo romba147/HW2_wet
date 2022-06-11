@@ -40,6 +40,11 @@ public:
         return company;
     }
 
+    void setCompany(int companyID) ///no validation check
+    {
+        company = companyID;
+    }
+
     Employee BumpGrade(int num){
         if (num> 0){
             this->grade = this->grade +1;
@@ -51,6 +56,7 @@ public:
         this->salary = this->salary + num;
         return *this;
     }
+
 
 
     virtual bool operator < (const Employee& emp1) const{

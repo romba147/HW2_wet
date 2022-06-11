@@ -15,6 +15,7 @@ typedef enum {
 } HashStatus;
 
 #include "LIst1.h"
+//#include "Employee.h"
 
 template<class T>
 class HashTable
@@ -220,29 +221,50 @@ public:
         }
     }
 
-
 };
 
+
+/** Hash General Non-Member Functions **/
+
 template<class T>
-void unite(HashTable<T>* h1, HashTable<T>* h2)
+void swapHashes(HashTable<T>* hBase, HashTable<T>* hAdded)
 {
+    List<T>** tempTable = hBase->table;
+    int tempNElements = hBase->nElements;
+    int tempNCells = hBase->nCells;
 
-    HashTable<T>* hBig, * hSmall;
-    if (h1->nElements >= h2->nElements)
-    {
-        hBig = h1;
-        hSmall = h2;
-    }
-    else
-    {
-        hBig = h2;
-        hSmall = h1;
-    }
+    hBase->table = hAdded->table;
+    hBase->nCells = hAdded->nCells;
+    hBase->nElements = hAdded->nElements;
 
-    hBig->addHash(hSmall);
-    delete hSmall;
-
+    hAdded->table = tempTable;
+    hAdded->nCells = tempNCells;
+    hAdded->nElements = tempNElements;
 }
+
+template<class T>
+void unite(HashTable<T>* hBase, HashTable<T>* hAdded)
+{
+    if (hBase->nElements >= hAdded->nElements) //hBase is bigger
+    {
+        hBase->addHash(hAdded);
+        delete hAdded;
+    }
+    else //hBase is smaller
+    {
+        hAdded->addHash(hBase);
+        swapHashes(hBase, hAdded);
+        delete hAdded;
+    }
+}
+
+///not checked
+
+
+
+
+
+
 
 /*
 template<class T>
