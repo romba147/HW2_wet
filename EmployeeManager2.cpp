@@ -117,13 +117,36 @@ StatusType EmployeeManager::SumOfBumpGradeBetweenTopWorkersByGroup(int companyID
     {
         return  INVALID_INPUT;
     }
-    auto req_company = getCompany(companyID);
-    if (req_company.)
+    Company* req_company = getCompany(companyID);
+    if (req_company->getSalaryTree()->size < m)
+    {
+        return FAILURE;
+    }
+    auto tree = req_company->getSalaryTree();
+    int to_find = tree->size - m +1;
+    int to_return = tree->getGradesSum() - tree->findGradesBelow(tree->findRankedNode(m)->data);
+
 
 }
 
 StatusType EmployeeManager::AverageBumpGradeBetweenSalaryByGroup(int companyID, int lowerSalary, int higherSalary)
 {
+    if (companyID > this->size  || companyID < 0 || lowerSalary < 0 || higherSalary < 0 || higherSalary < lowerSalary)
+    {
+        return INVALID_INPUT;
+    }
+
+    auto reqCompany= getCompany(companyID);
+    auto tree = reqCompany->getSalaryTree();
+    ///calculate number of employees in range
+    auto* dummy_emplpoyee = new Employee (99999999,higherSalary , 0,0);
+    int elements_below_max = tree->findRank(dummy_emplpoyee);
+    if (lowerSalary == 0)
+    {
+        elements_below_max =
+    }
+    int
+
 
 }
 

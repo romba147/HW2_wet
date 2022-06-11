@@ -745,6 +745,11 @@ public:
             return;
         }
     }
+
+    int getGradesSum()
+    {
+        return this->root->sonsGradesSum;
+    }
 };
 
 template<class T>
