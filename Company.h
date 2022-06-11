@@ -13,13 +13,14 @@
 
 class Company {
     int id;
-    int value;
+    float value;
     AVLRankTree<Employee>* salary_tree;
-    HashTable<>
+    HashTable<Employee>* employees;
 
 public:
-    Company(int id , int value) : id(id) , value(value) {
+    Company(int id , float value) : id(id) , value(value) {
         salary_tree = new AVLRankTree<Employee>();
+        employees = new HashTable<Employee>();
     };
 
 
@@ -27,7 +28,7 @@ public:
         return this->id;
     }
 
-    int getValue () const
+    float getValue () const
     {
         return value;
     }
@@ -40,7 +41,7 @@ public:
 
 
 
-    Company setValue(int num)
+    Company setValue(float num)
     {
         value = num;
         return *this;

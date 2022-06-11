@@ -51,6 +51,11 @@ int main() {
     std::cout << tree->findGradesBelow(g) << std::endl;
     std::cout << tree->findGradesBelow(h) << std::endl;
 
+    tree->deleteNode(tree->root,a);
+    tree->deleteNode(tree->root,e);
+    std::cout << tree->findRank(h) << std::endl;
+    std::cout << tree->findGradesBelow(h) << std::endl;
+
 
     return 0;
 

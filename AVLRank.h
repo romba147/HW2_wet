@@ -271,12 +271,14 @@ public:
             {
                 s = biggest(r->left);
                 r->data = s->data;
+                r->grade = s->grade;
                 r->left = deleteNode(r->left,s->data);
             }
             else
             {
                 b = smallest(r->right);
                 r->data = b->data;
+                r->grade = b->grade;
                 r->right = deleteNode(r->right,b->data);
             }
         }
@@ -302,7 +304,7 @@ public:
         }
 
         updateSonsNum(r->left);
-        updateHeight(r->right);
+        updateSonsNum(r->right);
         updateSonsNum(r);
 
         return r;

@@ -10,8 +10,10 @@ class Employee {
     int id;
     int salary;
     int grade;
+    int company;
 public:
-    Employee (int id, int salary , int grade) : id(id) , salary(salary) ,grade(grade){};
+    Employee (int id, int salary , int grade , int company) : id(id) , salary(salary) ,grade(grade),
+    company(company){};
 
     bool operator == (const Employee& emp1) const {
         return this->id==emp1.id;
@@ -31,6 +33,11 @@ public:
     int getGrade () const
     {
         return grade;
+    }
+
+    int getCompany() const
+    {
+        return company;
     }
 
     Employee BumpGrade(int num){
