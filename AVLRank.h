@@ -566,7 +566,7 @@ public:
         }
         return  to_return;
     }
-
+//finds maximum node with data
     node<T>* findMaxNodeAux (node<T>* r , T* data)
     {
         if (r == nullptr)
@@ -589,7 +589,7 @@ public:
         }
         return nullptr;
     }
-
+//find minumum node with data
     node<T>* findMinNode(T* data)
     {
         if (this->root == nullptr)
@@ -626,7 +626,7 @@ public:
         }
         return nullptr;
     }
-
+//find the rank of data (number of nodes smaller or equal)
     int findRank (T* data)
     {
         auto rank = new int (0);
@@ -672,7 +672,7 @@ public:
             return;
         }
     }
-
+//find the element in index n
     node<T>* findRankedNode(int n) const
     {
        return findRankedNodeAux(this->root, n);
@@ -698,7 +698,7 @@ public:
             return findRankedNodeAux(r->right,n-k-1);
         }
     }
-
+//sum of grades below or equal data
     int findGradesBelow (T* data)
     {
         auto grades = new int (0);

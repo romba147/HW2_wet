@@ -11,18 +11,18 @@ Company *EmployeeManager::getCompany(int n)
     {
         return this->companyArray[0];
     }
-   if (n > this->size)
-   {
-       return nullptr;
-   }
-   to_return = this->companyUF->find(n);
+    if (n > this->size)
+    {
+        return nullptr;
+    }
+    to_return = this->companyUF->find(n);
     return  this->companyArray[to_return];
 
 }
 
 Employee *EmployeeManager::getEmployee(int id)
 {
-    auto* newEmployee = new Employee(Id,0,0);
+    auto* newEmployee = new Employee(id,0,0,0);
     auto* checkIfHere = companyArray[0]->findEmployee(newEmployee);
     if (checkIfHere == nullptr)
     {
@@ -34,31 +34,32 @@ Employee *EmployeeManager::getEmployee(int id)
     return data;
 }
 
-
 StatusType EmployeeManager::AddEmployee(int employeeID, int companyID, int grade)
 {
+    if (employeeID<=0 || companyID <=0 || companyID > size || grade < 0)
+    {
+        return INVALID_INPUT;
+    }
+    if (getEmployee(employeeID))
+    {
+        return FAILURE;
+    }
+
+    Employee* newEmployee = new Employee(employeeID,0,grade,0);
+    companyArray[0]->addEmployee()
+
+
+    return SUCCESS;
 
 }
 
 StatusType EmployeeManager::RemoveEmployee(int employeeID)
 {
-
-}
-
-StatusType EmployeeManager::PromoteEmployee(int employeeID, int bumpGrade)
-{
-    if (employeeID < =0)
+    if (employeeID <= 0)
     {
         return INVALID_INPUT;
     }
-    Employee* req_employee = getEmployee(employeeID);
-    if (req_employee == nullptr)
-    {
-        return FAILURE;
-    }
-    req_employee->BumpGrade(bumpGrade);
-    companyArray[req_employee->getCompany()]->employeeGradeWasChanged(req_employee);
-    return SUCCESS;
+    if (companyArray[0]->findEmployee())
 
 }
 
@@ -81,7 +82,7 @@ StatusType EmployeeManager::PromoteEmployee(int employeeID, int bumpGrade)
 
 StatusType EmployeeManager::EmployeeSalaryIncrease(int employeeID, int salaryIncrease)
 {
-    if (employeeID < =0)
+    if (employeeID <=0)
     {
         return INVALID_INPUT;
     }
@@ -90,8 +91,9 @@ StatusType EmployeeManager::EmployeeSalaryIncrease(int employeeID, int salaryInc
     {
         return FAILURE;
     }
+    bool was_zero = (req_employee->getSalary() == 0);
     req_employee->IncreaseSalary(salaryIncrease);
-    companyArray[req_employee->getCompany()]->employeeSalaryChanged(req_employee);
+    companyArray[req_employee->getCompany()]->employeeSalaryChanged(req_employee, was_zero);
     return SUCCESS;
 }
 
@@ -102,6 +104,12 @@ StatusType EmployeeManager::AcquireCompany(int companyID1, int companyID2, doubl
 
 StatusType EmployeeManager::SumOfBumpGradeBetweenTopWorkersByGroup(int companyID, int m)
 {
+    if (companyID > this->size  || companyID < 0 || m <= 0)
+    {
+        return  INVALID_INPUT;
+    }
+    auto req_company = getCompany(companyID);
+    if (req_company.)
 
 }
 
