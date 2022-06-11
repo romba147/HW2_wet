@@ -13,12 +13,14 @@
 
 class Company {
     int id;
+    int GradesNum;
     float value;
     AVLRankTree<Employee>* salary_tree;
     HashTable<Employee>* employees;
 
 public:
     Company(int id , float value) : id(id) , value(value) {
+        GradesNum=0;
         salary_tree = new AVLRankTree<Employee>();
         employees = new HashTable<Employee>();
     };
@@ -38,26 +40,49 @@ public:
         return salary_tree;
     }
 
-
-
-
-    Company setValue(float num)
+    Company& setValue(float num)
     {
         value = num;
         return *this;
     }
 
 
-    Company addEmployee (Employee* employee)
+    Company& addEmployee (Employee* employee)
     {
-
-
+        employees->insert(employee);
         return *this;
     }
 
-    Company removeEmployee (Employee* employeeRemove)
+    Company& employeeSalaryChanged(Employee* employee, bool was_zero)
     {
+       if (!was_zero)
+       {
+           salary_tree->deleteNode(salary_tree->root,employee);
+       }
+       salary_tree->insert(employee,employee->getGrade());
+       return *this;
+    }
 
+    Company& employeeGradeWasChanged(Employee* employee , int bumpGrade)
+    {
+        if (employee->getSalary() > 0)
+        {
+            salary_tree->deleteNode(salary_tree->root,employee);
+            salary_tree->insert(employee,employee->getGrade());
+        }
+        GradesNum+=bumpGrade;
+        return *this;
+    }
+
+    Company& removeEmployee (Employee* employeeRemove)
+    {
+        if (employeeRemove->getSalary() > 0)
+        {
+            salary_tree->deleteNode(salary_tree->root,employeeRemove);
+        }
+        employees->remove(employeeRemove);
+        GradesNum -= employeeRemove->getGrade();
+        return *this;
     }
 
     bool operator == (const Company& cmp1) const {

@@ -673,6 +673,32 @@ public:
         }
     }
 
+    node<T>* findRankedNode(int n) const
+    {
+       return findRankedNodeAux(this->root, n);
+    }
+
+    node<T>* findRankedNodeAux(node<T>* r,int n)
+    {
+        int k =0;
+        if (r->left)
+        {
+            k = r->left->sonsNum;
+        }
+        if (k == n-1)
+        {
+            return r;
+        }
+        else if (k> n-1)
+        {
+            return findRankedNodeAux(r->left,n);
+        }
+        else
+        {
+            return findRankedNodeAux(r->right,n-k-1);
+        }
+    }
+
     int findGradesBelow (T* data)
     {
         auto grades = new int (0);
