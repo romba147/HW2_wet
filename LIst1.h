@@ -6,14 +6,14 @@
 #define HW2_WET_LIST1_H
 
 ///create statuses: node exists, node doesn't exist,....???
-//typedef enum {
-//    SUCCESS_LIST = 0,
-//    ELEMENT_ALREADY_IN_LIST = -1,
-//    ELEMENT_NOT_IN_LIST = -2,
-//    INVALID_INPUT_LIST = -3
-//} ListStatus;
+typedef enum {
+    SUCCESS_LIST = 0,
+    ELEMENT_ALREADY_IN_LIST = -1,
+    ELEMENT_NOT_IN_LIST = -2,
+    INVALID_INPUT_LIST = -3
+} ListStatus;
 
-#include "dummy_lib.h" ///delete after!!!
+//#include "dummy_lib.h" ///delete after!!!
 
 template<class T>
 struct listNode
@@ -68,29 +68,29 @@ public:
 
     //insert to list as new head (after dummy node)
     ///listNode<T>* insertHead(const T* const data)
-    StatusType insertHead(T* const data)
+    ListStatus insertHead(T* const data)
     {
         if (data == nullptr) ///not inserting null data
         {
-            return INVALID_INPUT;
+            return INVALID_INPUT_LIST;
         }
         if(find(data))
         {
-            return FAILURE; // element already in list
+            return ELEMENT_ALREADY_IN_LIST; // element already in list
         }
         auto* newNode = new listNode<T>(data); ///changed c'tor
         newNode->next = head->next;
         head->next = newNode;
         size++;
-        return SUCCESS;
+        return SUCCESS_LIST;
     }
 
     //gets the wanted node data, returns the ptr to the removed node
-    StatusType removeNode(T* data)
+    ListStatus removeNode(T* data)
     {
         if (data == nullptr) //not inserting null data
         {
-            return INVALID_INPUT;
+            return INVALID_INPUT_LIST;
         }
 
         listNode<T>* temp = head;
@@ -103,11 +103,11 @@ public:
                 rmNode->next = nullptr;   //think there is no need
                 delete rmNode;
                 size--;
-                return SUCCESS;
+                return SUCCESS_LIST;
             }
             temp = temp->next;
         }
-        return FAILURE; // element not in list
+        return ELEMENT_NOT_IN_LIST; // element not in list
     }
 
     void clear()

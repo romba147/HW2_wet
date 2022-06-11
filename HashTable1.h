@@ -6,15 +6,16 @@
 #define HASHTABLE_HASHTABLE_H
 
 #define MIN_HASH_SIZE 16
+#include "LIst1.h"
 
-//typedef enum {
-//    SUCCESS_HASH = 0,
-//    ELEMENT_ALREADY_IN_HASH = -1,
-//    ELEMENT_NOT_IN_HASH = -2,
-//    INVALID_INPUT_HASH = -3
-//} HashStatus;
+typedef enum {
+    SUCCESS_HASH = 0,
+    ELEMENT_ALREADY_IN_HASH = -1,
+    ELEMENT_NOT_IN_HASH = -2,
+    INVALID_INPUT_HASH = -3
+} HashStatus;
 
-#include "dummy_lib.h" ///delete after!!!
+//#include "dummy_lib.h" ///delete after!!!
 
 template<class T>
 class HashTable
@@ -80,62 +81,62 @@ public:
         return temp;
     }
 
-    StatusType insert(T* const data)
+    HashStatus insert(T* const data)
     {
         if (data == nullptr) ///not inserting null data
         {
-            return INVALID_INPUT;
+            return INVALID_INPUT_HASH;
         }
 
-        StatusType rStatus = table[hashFunc(data)]->insertHead(data);
+        HashStatus rStatus = table[hashFunc(data)]->insertHead(data);
 
-        if(rStatus == FAILURE)
+        if(rStatus == ELEMENT_ALREADY_IN_HASH)
         {
-            return FAILURE; // element already in hash
+            return ELEMENT_ALREADY_IN_HASH; // element already in hash
         }
 
         nElements++;
         this->resize();
-        return SUCCESS;
+        return SUCCESS_HASH;
     }
 
     //for uniting knowing the end size.
-    StatusType noResizeInsert(T* const data)
+    HashStatus noResizeInsert(T* const data)
     {
         if (data == nullptr) ///not inserting null data
         {
-            return INVALID_INPUT;
+            return INVALID_INPUT_HASH;
         }
 
-        StatusType rStatus = table[hashFunc(data)]->insertHead(data);
+        ListStatus rStatus = table[hashFunc(data)]->insertHead(data);
 
-        if(rStatus == FAILURE)
+        if(rStatus == ELEMENT_ALREADY_IN_LIST)
         {
-            return FAILURE; // element already in hash
+            return ELEMENT_ALREADY_IN_HASH; // element already in hash
         }
 
         nElements++;
         //this->resize();
-        return SUCCESS;
+        return SUCCESS_HASH;
     }
 
-    StatusType remove(T* const data)
+    HashStatus remove(T* const data)
     {
         if (data == nullptr) //not inserting null data
         {
-            return INVALID_INPUT;
+            return INVALID_INPUT_HASH;
         }
 
-        StatusType rStatus = table[hashFunc(data)]->removeNode(data);
+        ListStatus rStatus = table[hashFunc(data)]->removeNode(data);
 
-        if(rStatus == FAILURE)
+        if(rStatus == ELEMENT_NOT_IN_LIST)
         {
-            return FAILURE; // element not in hash
+            return ELEMENT_NOT_IN_HASH; // element not in hash
         }
 
         nElements--;
         this->resize();
-        return SUCCESS;
+        return SUCCESS_HASH;
 
     }
 

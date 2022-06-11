@@ -10,6 +10,7 @@
 #include "UF.h"
 #include "AVLRank.h"
 #include "Employee.h"
+#include "library2.h"
 
 class EmployeeManager
 {
@@ -19,6 +20,7 @@ public:
     Company** companyArray;
     UF* companyUF;
     Company* systemCompany;
+    int size;
 
     /** EmployeeManager Methods **/
 
@@ -28,6 +30,8 @@ public:
     //user c'tor
     EmployeeManager(int k)
     {
+        size = k;
+
         //init companyArray
         companyArray = new Company*[k];
         for (int i = 0; i < k; ++i)
@@ -42,7 +46,18 @@ public:
         systemCompany = new Company(0, 0);
     }
 
-    Company* getCompany (int n);
+    ~EmployeeManager()
+    {
+        for (int i = 0; i < size; ++i)
+        {
+            delete companyArray[i];
+        }
+    }
+
+    Company* getCompany (int n)
+    {
+
+    }
 
     Employee* getEmployee (int  id);
 
