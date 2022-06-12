@@ -227,7 +227,8 @@ StatusType EmployeeManager::SumOfBumpGradeBetweenTopWorkersByGroup(int companyID
     if(to_return==0) {
         to_return = tree->getGradesSum() - tree->findGradesBelow(tree->findRankedNode(to_find)->data);
     }
-    printf("SumOfBumpGradeBetweenTopWorkersByGroup %d\n" , to_return);
+    /// changed %d to: %lld (or %I64d)
+    printf("SumOfBumpGradeBetweenTopWorkersByGroup %lld\n" , to_return);
     return SUCCESS;
 
 

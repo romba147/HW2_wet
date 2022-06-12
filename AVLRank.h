@@ -21,7 +21,7 @@ struct node {
     int grade;
     long long int height;
 
-    node(T* data, int grade = 0) : data (data), grade(grade) , sonsGradesSum(grade)
+    explicit node(T* data, int grade = 0) : data (data), sonsGradesSum(grade), grade(grade)
     {
         left = nullptr;
         right = nullptr;

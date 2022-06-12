@@ -12,7 +12,7 @@ class Employee {
     long long int salary;
     int company;
 public:
-    Employee (int id, int salary , int grade , int company) : id(id) , salary(salary) ,grade(grade),
+    Employee (int id, int grade , int salary , int company) : id(id) , grade(grade) , salary(salary),
     company(company){};
 
     bool operator == (const Employee& emp1) const {

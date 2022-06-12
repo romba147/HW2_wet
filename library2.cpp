@@ -35,7 +35,7 @@ StatusType AcquireCompany(void *DS, int companyID1, int companyID2, double facto
     {
         return INVALID_INPUT;
     }
-    ((EmployeeManager*)DS)->AcquireCompany(companyID1,companyID2,factor);
+    return ((EmployeeManager*)DS)->AcquireCompany(companyID1,companyID2,factor);
 }
 
 StatusType EmployeeSalaryIncrease(void *DS, int employeeID, int salaryIncrease)
@@ -44,7 +44,7 @@ StatusType EmployeeSalaryIncrease(void *DS, int employeeID, int salaryIncrease)
     {
         return INVALID_INPUT;
     }
-    ((EmployeeManager*)DS)->EmployeeSalaryIncrease(employeeID,salaryIncrease);
+    return ((EmployeeManager*)DS)->EmployeeSalaryIncrease(employeeID,salaryIncrease);
 }
 
 StatusType PromoteEmployee(void *DS, int employeeID, int bumpGrade)
@@ -53,7 +53,7 @@ StatusType PromoteEmployee(void *DS, int employeeID, int bumpGrade)
     {
         return INVALID_INPUT;
     }
-    ((EmployeeManager*)DS)->PromoteEmployee(employeeID,bumpGrade);
+    return ((EmployeeManager*)DS)->PromoteEmployee(employeeID,bumpGrade);
 }
 
 StatusType SumOfBumpGradeBetweenTopWorkersByGroup(void *DS, int companyID, int m)
@@ -62,7 +62,7 @@ StatusType SumOfBumpGradeBetweenTopWorkersByGroup(void *DS, int companyID, int m
     {
         return INVALID_INPUT;
     }
-    ((EmployeeManager*)DS)->SumOfBumpGradeBetweenTopWorkersByGroup(companyID,m);
+    return ((EmployeeManager*)DS)->SumOfBumpGradeBetweenTopWorkersByGroup(companyID,m);
 }
 
 StatusType AverageBumpGradeBetweenSalaryByGroup(void *DS, int companyID, int lowerSalary, int higherSalary)
@@ -71,7 +71,7 @@ StatusType AverageBumpGradeBetweenSalaryByGroup(void *DS, int companyID, int low
     {
         return INVALID_INPUT;
     }
-    ((EmployeeManager*)DS)->AverageBumpGradeBetweenSalaryByGroup(companyID,lowerSalary,higherSalary);
+    return ((EmployeeManager*)DS)->AverageBumpGradeBetweenSalaryByGroup(companyID,lowerSalary,higherSalary);
 }
 
 StatusType CompanyValue(void *DS, int companyID)
@@ -80,7 +80,7 @@ StatusType CompanyValue(void *DS, int companyID)
     {
         return INVALID_INPUT;
     }
-    ((EmployeeManager*)DS)->CompanyValue(companyID);
+    return ((EmployeeManager*)DS)->CompanyValue(companyID);
 }
 
 /*
