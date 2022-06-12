@@ -59,11 +59,19 @@ public:
     ~HashTable()
     {
         ///this->clear(); ///do we need this? or use just the line below?
-        for (int i = 0; i < nCells; ++i)
+        if(table)
         {
-            delete table[i];
+            for (int i = 0; i < nCells; ++i)
+            {
+                if(table[i])
+                {
+                    delete table[i];
+                    table[i] = nullptr;
+                }
+            }
+            delete[] table;
+            table = nullptr;
         }
-        delete[] table;
     }
 
     int hashFunc(T* const data) const //changed return type from listNode<T>* to int
@@ -221,17 +229,40 @@ public:
             }
         }
     }
-
+/*
+ *     ~HashTable()
+    {
+        ///this->clear(); ///do we need this? or use just the line below?
+        if(table)
+        {
+            for (int i = 0; i < nCells; ++i)
+            {
+                if(table[i])
+                {
+                    delete table[i];
+                    table[i] = nullptr;
+                }
+            }
+            delete[] table;
+            table = nullptr;
+        }
+    }
+ * */
     void deleteHashWithData()
     {
-        for (int i = 0; i < nCells; ++i)
+        if(table)
         {
-            if(table[i]) ///check if not addressing deleted lists
+            for (int i = 0; i < nCells; ++i)
             {
-                table[i]->deleteListWithData();
+                if(table[i]) ///check if not addressing deleted lists
+                {
+                    table[i]->deleteListWithData();
+                    table[i]= nullptr;
+                }
             }
+            delete[] table;
+            table= nullptr;
         }
-        delete[] table;
     }
 
 };
