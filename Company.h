@@ -39,7 +39,7 @@ public:
     {
         return value;
     }
-    int getGradesNum() const
+    long long int getGradesNum() const
     {
         return GradesNum;
     }

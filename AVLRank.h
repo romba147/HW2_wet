@@ -707,7 +707,7 @@ public:
         return to_return;
     }
 
-    void findGradesAux (node<T>* r,T* data, int* grades)
+    void findGradesAux (node<T>* r,T* data, long long int* grades)
     {
         {
             if (r == nullptr)

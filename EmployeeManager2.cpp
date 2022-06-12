@@ -146,8 +146,7 @@ StatusType EmployeeManager::AcquireCompany(int acquirerID, int targetID, double 
     delete acquirerCompany->getSalaryTree();
     delete targetCompany->getSalaryTree();
     acquirerCompany->setSalaryTree(newTree);
-
-
+    return SUCCESS;
 
 }
 

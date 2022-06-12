@@ -108,7 +108,7 @@ public:
             return INVALID_INPUT_HASH;
         }
 
-        HashStatus rStatus = table[hashFunc(data)]->insertHead(data);
+        ListStatus rStatus = table[hashFunc(data)]->insertHead(data);
 
         if(rStatus == ELEMENT_ALREADY_IN_LIST)
         {
@@ -225,37 +225,36 @@ public:
 
 
 /** Hash General Non-Member Functions **/
-
-template<class T>
-void swapHashes(HashTable<T>* hBase, HashTable<T>* hAdded)
-{
-    List<T>** tempTable = hBase->table;
-    int tempNElements = hBase->nElements;
-    int tempNCells = hBase->nCells;
-
-    hBase->table = hAdded->table;
-    hBase->nCells = hAdded->nCells;
-    hBase->nElements = hAdded->nElements;
-
-    hAdded->table = tempTable;
-    hAdded->nCells = tempNCells;
-    hAdded->nElements = tempNElements;
-}
+//template<class T>
+//void swapHashes(HashTable<T>* hBase, HashTable<T>* hAdded)
+//{
+//    List<T>** tempTable = hBase->table;
+//    int tempNElements = hBase->nElements;
+//    int tempNCells = hBase->nCells;
+//
+//    hBase->table = hAdded->table;
+//    hBase->nCells = hAdded->nCells;
+//    hBase->nElements = hAdded->nElements;
+//
+//    hAdded->table = tempTable;
+//    hAdded->nCells = tempNCells;
+//    hAdded->nElements = tempNElements;
+//}
 
 template<class T>
 void unite(HashTable<T>* hBase, HashTable<T>* hAdded)
 {
-    if (hBase->nElements >= hAdded->nElements) //hBase is bigger
+    if (hBase->nElements >= hAdded->nElements)
     {
         hBase->addHash(hAdded);
         delete hAdded;
     }
-    else //hBase is smaller
-    {
-        hAdded->addHash(hBase);
-        swapHashes(hBase, hAdded);
-        delete hAdded;
-    }
+//    else //hBase is smaller
+//    {
+//        hAdded->addHash(hBase);
+//        swapHashes(hBase, hAdded);
+//        delete hAdded;
+//    }
 }
 
 ///not checked
