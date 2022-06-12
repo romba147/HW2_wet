@@ -1,8 +1,10 @@
 #include <iostream>
 #include "UF.h"
 #include "AVLRank.h"
+#include "EmployeeManager2.h"
 
-int main() {
+int main()
+{
  /*   //testing union find
     auto uf = UF(6);
     std::cout << "num of groups " << uf.getGroupsNum() <<std::endl;
@@ -63,5 +65,7 @@ int main() {
 
 //testing employee manager
 
-   auto* em =
+   auto* steve = new EmployeeManager(10);
+   steve->AddEmployee(3,3,3);
+    //return 0;
 }
