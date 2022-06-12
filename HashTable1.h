@@ -16,6 +16,7 @@ typedef enum {
 
 #include "LIst1.h"
 //#include "Employee.h"
+//lala
 
 template<class T>
 class HashTable
