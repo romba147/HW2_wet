@@ -228,8 +228,12 @@ StatusType EmployeeManager::SumOfBumpGradeBetweenTopWorkersByGroup(int companyID
     }
     auto tree = req_company->getSalaryTree();
     long long int to_find = tree->size - m ;
-    if(to_return==0) {
+    if(to_return==0 && to_find >0) {
         to_return = tree->getGradesSum() - tree->findGradesBelow(tree->findRankedNode(to_find)->data);
+    }
+    if (to_find == 0)
+    {
+        to_return = tree->getGradesSum();
     }
     /// changed %d to: %lld (or %I64d)
     printf("SumOfBumpGradeBetweenTopWorkersByGroup: %lld\n" , to_return);
