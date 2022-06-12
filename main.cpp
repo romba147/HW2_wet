@@ -17,7 +17,7 @@ int main() {
     std::cout << uf.getGroupSize(5) << std::endl;
 */
 
-     auto tree = new AVLRankTree<int>();
+/*     auto tree = new AVLRankTree<int>();
      auto a = new int (1);
      auto b = new int (2);
      auto c = new int (3);
@@ -59,7 +59,9 @@ int main() {
 
     return 0;
 
+*/
 
+//testing employee manager
 
-
+   auto* em =
 }

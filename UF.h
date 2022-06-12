@@ -94,11 +94,12 @@ public:
     }
     double getValue(int n)
     {
-        int to_return = 0;
+        double to_return = 0;
         auto sum = new double (0);
         findAux(n , sum);
+        to_return =(double)n+*(sum);
         delete sum;
-        return values[n] + *(sum);
+        return to_return;
 
     }
 

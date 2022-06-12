@@ -15,19 +15,17 @@ struct node {
     node *left;
     node *right;
     T *data;
-    int sonsNum;
-    int sonsGradesSum;
+    long long int sonsNum;
+    long long int sonsGradesSum;
     int grade;
-    int height;
+    long long int height;
 
-    explicit node(T* data, int grade) : data (data)
+    explicit node(T* data, int grade) : data (data), grade(grade) , sonsGradesSum(grade)
     {
         left = nullptr;
         right = nullptr;
         height = 0;
         sonsNum =1;
-        this->grade = grade;
-        this->sonsGradesSum = grade;
     }
 };
 
@@ -44,7 +42,7 @@ public:
     ~AVLRankTree(){
         this->deleteAllNodes(root);
     }
-    int calHeight (node<T>* p) const{
+    long long int calHeight (node<T>* p) const{
         if (!(p->left) && !(p->right)){
             return 0;
         }
@@ -335,15 +333,15 @@ public:
 
     //inorder - calling the function creates an array using malloc
     //if no need to limit array size - insert tree size as max
-    T** inorderArray (int max ) const
+    T** inorderArray (long long int max ) const
     {
-        int counter=0;
+        long long int counter=0;
         T** arr = (T**)malloc(max*sizeof(T*));
         inorderArrayAux(root, arr, &counter, max);
         return arr;
     }
 
-    void inorderArrayAux (node<T>* r, T* arr[], int* counter , int max) const
+    void inorderArrayAux (node<T>* r, T* arr[], long long int* counter , long long int max) const
     {
         if (!r)
         {
@@ -357,15 +355,15 @@ public:
         }
     }
 
-    T** reverseInorderArray (int max) const
+    T** reverseInorderArray (long long int max) const
     {
-        int counter=0;
+        long long int counter=0;
         T** arr = (T**)malloc(max*sizeof(T*));
         reverseInorderArrayAux(root, arr, &counter, max);
         return arr;
     }
 
-    void reverseInorderArrayAux (node<T>* r, T* arr[], int* counter , int max) const
+    void reverseInorderArrayAux (node<T>* r, T* arr[], long long int* counter , long long int max) const
     {
         if (!r)
         {
@@ -412,12 +410,12 @@ public:
         }
     }
 
-    void deleteLeafsFromRight (int numToDelete)
+    void deleteLeafsFromRight (long long int numToDelete)
     {
         root = deleteLeafsFromRightAux(root, &numToDelete);
     }
 
-    node<T>* deleteLeafsFromRightAux (node<T>* r, int* numToDelete)
+    node<T>* deleteLeafsFromRightAux (node<T>* r, long long int* numToDelete)
     {
         if (!r)
         {
@@ -441,11 +439,11 @@ public:
 
     void fillEmptyTreeFromSortedArray (T** arr)
     {
-        int counter=0;
+        long long int counter=0;
         fillEmptyTreeFromSortedArrayAux(root, arr, &counter);
     }
 
-    void fillEmptyTreeFromSortedArrayAux (node<T>* r, T* arr[], int* counter)
+    void fillEmptyTreeFromSortedArrayAux (node<T>* r, T* arr[], long long int* counter)
     {
         if (!r)
         {
@@ -627,16 +625,16 @@ public:
         return nullptr;
     }
 //find the rank of data (number of nodes smaller or equal)
-    int findRank (T* data)
+    long long int findRank (T* data)
     {
-        auto rank = new int (0);
+        auto rank = new long long int (0);
         auto reqNode = findMaxNode(data);
         findRankAux(this->root,reqNode->data, rank);
-        int to_return = *rank;
+        long long int to_return = *rank;
         return to_return;
     }
 
-    void findRankAux (node<T>* r,T* data, int* rank)
+    void findRankAux (node<T>* r,T* data, long long int* rank)
     {
         {
             if (r == nullptr)
@@ -673,14 +671,14 @@ public:
         }
     }
 //find the element in index n
-    node<T>* findRankedNode(int n) const
+    node<T>* findRankedNode(long long int n) const
     {
        return findRankedNodeAux(this->root, n);
     }
 
-    node<T>* findRankedNodeAux(node<T>* r,int n)
+    node<T>* findRankedNodeAux(node<T>* r,long long int n)
     {
-        int k =0;
+        long long int k =0;
         if (r->left)
         {
             k = r->left->sonsNum;
@@ -699,11 +697,11 @@ public:
         }
     }
 //sum of grades below or equal data
-    int findGradesBelow (T* data)
+    long long int findGradesBelow (T* data)
     {
-        auto grades = new int (0);
+        auto grades = new long long int (0);
         findGradesAux(this->root,data, grades);
-        int to_return = *grades;
+        long long int to_return = *grades;
         return to_return;
     }
 
@@ -746,7 +744,7 @@ public:
         }
     }
 
-    int getGradesSum()
+    long long int getGradesSum()
     {
         if (root) {
             return this->root->sonsGradesSum;
@@ -756,7 +754,7 @@ public:
 };
 
 template<class T>
-node<T>* createEmptyCompleteTreeAux (node<T>* r, int completeH)
+node<T>* createEmptyCompleteTreeAux (node<T>* r, long long int completeH)
 {
     if(completeH==-1)
     {
@@ -772,7 +770,7 @@ node<T>* createEmptyCompleteTreeAux (node<T>* r, int completeH)
 
 template<class T>
 ///gets pointer to tree - with no nodes
-void createEmptyCompleteTree (AVLRankTree<T>* completeTree ,int completeH)
+void createEmptyCompleteTree (AVLRankTree<T>* completeTree ,long long int completeH)
 {
     completeTree->root = createEmptyCompleteTreeAux(completeTree->root, completeH);
     completeTree->size = exp2(completeH+1)-1;
@@ -780,22 +778,22 @@ void createEmptyCompleteTree (AVLRankTree<T>* completeTree ,int completeH)
 
 template<class T>
 ///needs to get ptr to tree - with no nodes
-void createEmptyNearlyCompleteTree (AVLRankTree<T>* emptyTree, int finalSize)
+void createEmptyNearlyCompleteTree (AVLRankTree<T>* emptyTree, long long int finalSize)
 {
-    int newH= ceil(log2(finalSize+1))-1;
+    long long int newH= ceil(log2(finalSize+1))-1;
     createEmptyCompleteTree<T>(emptyTree,newH);
     emptyTree->deleteLeafsFromRight(emptyTree->size - finalSize);
     emptyTree->size=finalSize;
 }
 
 template<class T>
-void mergeArrays (T** arr1, T** arr2, T** destArr , int t1size, int t2size)
+void mergeArrays (T** arr1, T** arr2, T** destArr , long long int t1size, long long int t2size)
 {
     T** p1=arr1;
     T** p2=arr2;
     T** pDest=destArr;
-    int t1 = t1size;
-    int t2 = t2size;
+    long long int t1 = t1size;
+    long long int t2 = t2size;
     while (t1 > 0 && t2 > 0)
     {
         if (*(*p1)<*(*p2) || *(*p1)==*(*p2))

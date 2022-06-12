@@ -145,6 +145,7 @@ StatusType EmployeeManager::AcquireCompany(int acquirerID, int targetID, double 
     uniteTrees(acquirerCompany->getSalaryTree(),targetCompany->getSalaryTree(),newTree);
     delete acquirerCompany->getSalaryTree();
     delete targetCompany->getSalaryTree();
+    newTree->updateAllNodes();
     acquirerCompany->setSalaryTree(newTree);
     return SUCCESS;
 
@@ -163,7 +164,9 @@ StatusType EmployeeManager::SumOfBumpGradeBetweenTopWorkersByGroup(int companyID
     }
     auto tree = req_company->getSalaryTree();
     int to_find = tree->size - m +1;
-    int to_return = tree->getGradesSum() - tree->findGradesBelow(tree->findRankedNode(m)->data);
+    int to_return = tree->getGradesSum() - tree->findGradesBelow(tree->findRankedNode(to_find)->data);
+    printf("SumOfBumpGradeBetweenTopWorkersByGroup %d" , to_return);
+    return SUCCESS;
 
 
 }
@@ -179,8 +182,8 @@ StatusType EmployeeManager::AverageBumpGradeBetweenSalaryByGroup(int companyID, 
     auto tree = reqCompany->getSalaryTree();
     ///calculate number of employees in range
     auto* dummy_emplpoyee = new Employee (99999999,higherSalary , 0,0);
-    int elements_below_max = tree->findRank(dummy_emplpoyee);
-    int grades_below_max = tree->findGradesBelow(dummy_emplpoyee);
+    long long int elements_below_max = tree->findRank(dummy_emplpoyee);
+    long long int grades_below_max = tree->findGradesBelow(dummy_emplpoyee);
     if (lowerSalary == 0)
     {
         elements_below_max += (reqCompany->getEmployeesNum() - tree->size);
@@ -189,11 +192,11 @@ StatusType EmployeeManager::AverageBumpGradeBetweenSalaryByGroup(int companyID, 
     delete dummy_emplpoyee;
     auto* dummy_emplpoyee2 = new Employee (0,lowerSalary , 0,0);
     Employee *low_employee;
-    int elements_below_min =0;
-    int grades_below_min =0;
+    long long int elements_below_min =0;
+    long long int grades_below_min =0;
     if(tree->findMinNode(dummy_emplpoyee2)) {
         low_employee = tree->findMinNode(dummy_emplpoyee2)->data;
-        below_min = tree->findRank(low_employee) - 1;
+        elements_below_min = tree->findRank(low_employee) - 1;
         grades_below_min = tree->findGradesBelow(low_employee) - tree->findMinNode(dummy_emplpoyee2)->grade;
     }
 
@@ -203,14 +206,20 @@ StatusType EmployeeManager::AverageBumpGradeBetweenSalaryByGroup(int companyID, 
         return FAILURE;
     }
     int total_grades = grades_below_max - grades_below_min;
-
-
-
+    double to_return = double (total_grades)/double (total_num);
+    printf("AverageBumpGradeBetweenSalaryByGroup %.1f\n" , to_return);
+    return SUCCESS;
 
 }
 
 StatusType EmployeeManager::CompanyValue(int companyID)
 {
-
+    if(companyID > this->size  || companyID < 0)
+    {
+        return INVALID_INPUT;
+    }
+    double to_return =this->companyUF->getValue(companyID);
+    printf("CompanyValue %.1f\n" , to_return);
+    return SUCCESS;
 }
 

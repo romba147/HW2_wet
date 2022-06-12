@@ -13,7 +13,7 @@
 
 class Company {
     int id;
-    int GradesNum;
+    long long int GradesNum;
     float value;
     AVLRankTree<Employee>* salary_tree;
     HashTable<Employee>* employees;
@@ -30,7 +30,7 @@ public:
         return this->id;
     }
 
-    int getEmployeesNum() const
+    long long int getEmployeesNum() const
     {
         return this->employees->nElements;
     }
@@ -44,7 +44,7 @@ public:
         return GradesNum;
     }
 
-    void setGradesNum(int n)
+    void setGradesNum(long long int n)
     {
         GradesNum = n;
     }

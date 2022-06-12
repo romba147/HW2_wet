@@ -8,7 +8,7 @@
 
 class Employee {
     int id;
-    int salary;
+    long long int salary;
     int grade;
     int company;
 public:

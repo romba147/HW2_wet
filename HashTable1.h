@@ -23,8 +23,8 @@ class HashTable
 public:
     /** Hash Members **/
     List<T>** table;
-    int nCells;
-    int nElements;
+    long long int nCells;
+    long long int nElements;
     //others?
 
     /** Hash Methods **/
@@ -44,7 +44,7 @@ public:
 
     //c'tor - known size (for inner usage)
     //not using
-    explicit HashTable(int nCells) : nCells(nCells)
+    explicit HashTable(long long int nCells) : nCells(nCells)
     {
         table = new List<T>*[nCells];
         ///do we need this loop?
