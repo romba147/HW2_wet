@@ -213,6 +213,11 @@ StatusType EmployeeManager::SumOfBumpGradeBetweenTopWorkersByGroup(int companyID
     {
         return FAILURE;
     }
+    long long int to_return=0;
+    if (m == req_company->getSalaryTree()->size)
+    {
+        to_return =  req_company->getSalaryTree()->root->sonsGradesSum;
+    }
     auto tree = req_company->getSalaryTree();
     int to_find = tree->size - m +1;
     int to_return = tree->getGradesSum() - tree->findGradesBelow(tree->findRankedNode(to_find)->data);
