@@ -52,9 +52,9 @@ public:
             delete companyArray[i];
         }
         delete companyUF;
-        companyArray[0]->getEmployeesHT()->deleteHashWithData();
+        companyArray[0]->getEmployeesHT()->deleteHashData();
         delete companyArray[0];
-        delete companyArray;
+        delete[] companyArray;
 
     }
 

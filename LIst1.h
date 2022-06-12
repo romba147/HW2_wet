@@ -122,15 +122,16 @@ public:
         size=0;
     }
 
-    void deleteListWithData()
+    void deleteListData()
     {
-        while (head->next)
+        listNode<T>* rmNode = head->next;
+        while (rmNode)
         {
-            listNode<T>* rmNode = head->next;
-            head->next = rmNode->next;
-            rmNode->next = nullptr;
+//            head->next = rmNode->next;
+//            rmNode->next = nullptr;
             delete rmNode->data;
-            delete rmNode;
+            rmNode=rmNode->next;
+            //delete rmNode;
         }
         size=0;
     }
