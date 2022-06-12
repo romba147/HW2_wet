@@ -232,7 +232,7 @@ StatusType EmployeeManager::SumOfBumpGradeBetweenTopWorkersByGroup(int companyID
         to_return = tree->getGradesSum() - tree->findGradesBelow(tree->findRankedNode(to_find)->data);
     }
     /// changed %d to: %lld (or %I64d)
-    printf("SumOfBumpGradeBetweenTopWorkersByGroup %lld\n" , to_return);
+    printf("SumOfBumpGradeBetweenTopWorkersByGroup: %lld\n" , to_return);
     return SUCCESS;
 
 
@@ -275,7 +275,7 @@ StatusType EmployeeManager::AverageBumpGradeBetweenSalaryByGroup(int companyID, 
     delete dummy_emplpoyee2;
     long long int total_grades = grades_below_max - grades_below_min;
     double to_return = double (total_grades)/double (total_num);
-    printf("AverageBumpGradeBetweenSalaryByGroup %.1f\n" , to_return);
+    printf("AverageBumpGradeBetweenSalaryByGroup: %.1f\n" , to_return);
     return SUCCESS;
 
 }
@@ -287,7 +287,7 @@ StatusType EmployeeManager::CompanyValue(int companyID)
         return INVALID_INPUT;
     }
     double to_return =this->companyUF->getValue(companyID);
-    printf("CompanyValue %.1f\n" , to_return);
+    printf("CompanyValue: %.1f\n" , to_return);
     return SUCCESS;
 }
 
