@@ -87,18 +87,6 @@ public:
     }
 
 
-
-
-    Company& employeeSalaryChanged(Employee* employee, bool was_zero)
-    {
-       if (!was_zero)
-       {
-           salary_tree->deleteNode(salary_tree->root,employee);
-       }
-       salary_tree->insert(employee,employee->getGrade());
-       return *this;
-    }
-
     Company& employeeGradeWasChanged(Employee* employee , int bumpGrade)
     {
         if (employee->getSalary() > 0)

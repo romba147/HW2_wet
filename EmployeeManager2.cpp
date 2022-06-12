@@ -2,7 +2,28 @@
 // Created by Omer Meushar on 11/06/2022.
 //
 
+#define MAXID 2147483647
+#define MINID 0
+
 #include "EmployeeManager2.h"
+
+ static void updateAllNodesAux(node<Employee>* r , AVLRankTree<Employee>* tree)
+{
+    if (!r)
+    {
+        return;
+    }
+    updateAllNodesAux(r->left , tree);
+    updateAllNodesAux(r->right , tree);
+    r->grade = r->data->getGrade();
+    tree->updateSonsNum(r);
+}
+
+
+ static void updateAllNodes(AVLRankTree<Employee>* tree)
+{
+    updateAllNodesAux(tree->root, tree);
+}
 
 Company *EmployeeManager::getCompany(int n)
 {
@@ -33,6 +54,35 @@ Employee *EmployeeManager::getEmployee(int id)
     return data;
 }
 
+void EmployeeManager::updateSalaryTrees(Employee *employee, int increase ,
+                                            Company* company, bool was_zero)
+{
+    auto tree1 = company->getSalaryTree();
+    auto tree2 = companyArray[0]->getSalaryTree();
+    if (!was_zero) {
+        tree1->deleteNode(tree1->root, employee);
+        tree2->deleteNode(tree2->root, employee);
+    }
+    employee->IncreaseSalary(increase);
+    tree1->insert(employee,employee->getGrade());
+    tree2->insert(employee,employee->getGrade());
+}
+
+void EmployeeManager::updateGradeTrees (Employee* employee , int bump, Company* company)
+{
+    auto tree1 = company->getSalaryTree();
+    auto tree2 = companyArray[0]->getSalaryTree();
+
+        tree1->deleteNode(tree1->root, employee);
+        tree2->deleteNode(tree2->root, employee);
+
+    employee->BumpGrade(bump);
+    tree1->insert(employee,employee->getGrade());
+    tree2->insert(employee,employee->getGrade());
+}
+
+
+
 StatusType EmployeeManager::AddEmployee(int employeeID, int companyID, int grade)
 {
     if (employeeID<=0 || companyID <=0 || companyID > size || grade < 0)
@@ -44,7 +94,7 @@ StatusType EmployeeManager::AddEmployee(int employeeID, int companyID, int grade
         return FAILURE;
     }
 
-    Employee* newEmployee = new Employee(employeeID,0,grade,companyID);
+    Employee* newEmployee = new Employee(employeeID,0,grade,companyUF->find(companyID));
     companyArray[0]->addEmployee(newEmployee);
     getCompany(companyID)->addEmployee(newEmployee);
 
@@ -82,12 +132,13 @@ StatusType EmployeeManager::PromoteEmployee(int employeeID, int bumpGrade)
     {
         return FAILURE;
     }
-    req_employee->BumpGrade(bumpGrade);
-    companyArray[req_employee->getCompany()]->employeeGradeWasChanged(req_employee, bumpGrade);
+    if (req_employee->getSalary() > 0)
+    {
+        updateGradeTrees(req_employee,bumpGrade, companyArray[req_employee->getCompany()]);
+    }
     return SUCCESS;
-
 }
-
+//
 StatusType EmployeeManager::EmployeeSalaryIncrease(int employeeID, int salaryIncrease)
 {
     if (employeeID <=0)
@@ -100,8 +151,8 @@ StatusType EmployeeManager::EmployeeSalaryIncrease(int employeeID, int salaryInc
         return FAILURE;
     }
     bool was_zero = (req_employee->getSalary() == 0);
-    req_employee->IncreaseSalary(salaryIncrease);
-    companyArray[req_employee->getCompany()]->employeeSalaryChanged(req_employee, was_zero);
+    updateSalaryTrees(req_employee,salaryIncrease,  companyArray[req_employee->getCompany()],was_zero);
+
     return SUCCESS;
 }
 
@@ -141,7 +192,7 @@ StatusType EmployeeManager::AcquireCompany(int acquirerID, int targetID, double 
     updateCompanyAfterAcquire(acquirerCompany);
     ///unite trees?
     ///create a new tree?
-    AVLRankTree<Employee>* newTree = new AVLRankTree<Employee>;
+    auto* newTree = new AVLRankTree<Employee>;
     uniteTrees(acquirerCompany->getSalaryTree(),targetCompany->getSalaryTree(),newTree);
     delete acquirerCompany->getSalaryTree();
     delete targetCompany->getSalaryTree();
@@ -190,22 +241,22 @@ StatusType EmployeeManager::AverageBumpGradeBetweenSalaryByGroup(int companyID, 
         grades_below_max += (reqCompany->getGradesNum() - tree->getGradesSum());
     }
     delete dummy_emplpoyee;
-    auto* dummy_emplpoyee2 = new Employee (0,lowerSalary , 0,0);
+    auto* dummy_emplpoyee2 = new Employee (MINID,lowerSalary , 0,0);
     Employee *low_employee;
     long long int elements_below_min =0;
     long long int grades_below_min =0;
     if(tree->findMinNode(dummy_emplpoyee2)) {
         low_employee = tree->findMinNode(dummy_emplpoyee2)->data;
-        elements_below_min = tree->findRank(low_employee) - 1;
-        grades_below_min = tree->findGradesBelow(low_employee) - tree->findMinNode(dummy_emplpoyee2)->grade;
+        elements_below_min = tree->findRank(low_employee);
+        grades_below_min = tree->findGradesBelow(low_employee);
     }
 
-    int total_num = elements_below_max - elements_below_min;
+    long long int total_num = elements_below_max - elements_below_min;
     if (total_num == 0)
     {
         return FAILURE;
     }
-    int total_grades = grades_below_max - grades_below_min;
+    long long int total_grades = grades_below_max - grades_below_min;
     double to_return = double (total_grades)/double (total_num);
     printf("AverageBumpGradeBetweenSalaryByGroup %.1f\n" , to_return);
     return SUCCESS;

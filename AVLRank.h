@@ -8,6 +8,7 @@
 #include <cmath>
 #include <exception>
 #include <cstdlib>
+#include "Employee.h"
 
 
 template <class T>
@@ -20,7 +21,7 @@ struct node {
     int grade;
     long long int height;
 
-    explicit node(T* data, int grade) : data (data), grade(grade) , sonsGradesSum(grade)
+    node(T* data, int grade = 0) : data (data), grade(grade) , sonsGradesSum(grade)
     {
         left = nullptr;
         right = nullptr;
@@ -535,21 +536,6 @@ public:
     }
 
     ///////////rank tree functions
-    void updateAllNodes()
-    {
-        updateAllNodesAux(this->root);
-    }
-
-    void updateAllNodesAux(node<T>* r)
-    {
-        if (!r)
-        {
-            return;
-        }
-        updateAllNodesAux(r->left);
-        updateAllNodesAux(r->right);
-        updateSonsNum(r);
-    }
 
     node<T>* findMaxNode(T* data)
     {
@@ -557,35 +543,31 @@ public:
         {
             return nullptr;
         }
-        auto* to_return = findMaxNodeAux(this->root , data);
-        if (to_return == nullptr)
-        {
-            return biggest(this->root);
-        }
-        return  to_return;
+        auto to_return = new node<T>*;
+        *(to_return) = nullptr;
+        findMaxNodeAux(this->root , data , to_return);
+        return  *(to_return);
     }
 //finds maximum node with data
-    node<T>* findMaxNodeAux (node<T>* r , T* data)
+    void findMaxNodeAux (node<T>* r , T* data , node<T>** to_return )
     {
         if (r == nullptr)
         {
-            return nullptr;
+            return;
         }
 
-        if (*(data) == *(r->data) || r->right == nullptr || ((*(data) < *(r->right->data)) && (*(data)> *(r->data))))
+        if (*(r->data) > *(data) )
         {
-            return r;
+            *(to_return) = r;
+            findMaxNodeAux(r->left,data,to_return);
         }
 
-        else if (*(data) < *(r->data))
+        else
         {
-            return findMaxNodeAux(r->left,data);
+            findMaxNodeAux(r->right,data,to_return);
         }
-        else if ((*(data) > *(r->data)))
-        {
-            return  findMaxNodeAux(r->right,data);
-        }
-        return nullptr;
+
+
     }
 //find minumum node with data
     node<T>* findMinNode(T* data)
@@ -594,41 +576,45 @@ public:
         {
             return nullptr;
         }
-        auto* to_return = findMinNodeAux(this->root , data);
-        if (to_return == nullptr)
-        {
-            return smallest(this->root);
-        }
-        return  to_return;
+        auto to_return = new node<T>*;
+        *(to_return) = nullptr;
+        findMinNodeAux(this->root , data , to_return);
+        return  *(to_return);
     }
 
-    node<T>* findMinNodeAux (node<T>* r , T* data)
+    void findMinNodeAux (node<T>* r , T* data, node<T>** to_return)
     {
         if (r == nullptr)
         {
-            return nullptr;
+            return;
         }
 
-        if (*(data) == *(r->data) || r->left == nullptr || *(data) > *(r->left->data))
+        if (*(r->data) < *(data) )
         {
-            return r;
+                *(to_return) = r;
+                findMinNodeAux(r->right,data,to_return);
         }
 
-        else if (*(data) < *(r->data))
+        else
         {
-            return findMinNode(r->left,data);
+            findMinNodeAux(r->left,data,to_return);
         }
-        else if ((*(data) > *(r->data)))
-        {
-            return  findMinNode(r->right,data);
-        }
-        return nullptr;
+
+
     }
 //find the rank of data (number of nodes smaller or equal)
     long long int findRank (T* data)
     {
         auto rank = new long long int (0);
+        if(*(data) < *(this->smallest(this->root)->data))
+        {
+            return 0;
+        }
         auto reqNode = findMaxNode(data);
+        if (!reqNode)
+        {
+            return this->root->sonsNum;
+        }
         findRankAux(this->root,reqNode->data, rank);
         long long int to_return = *rank;
         return to_return;
@@ -645,10 +631,10 @@ public:
             if (*(data) == *(r->data))
             {
                 if (r->left) {
-                    *(rank) = *(rank) + r->left->sonsNum + 1;
+                    *(rank) = *(rank) + r->left->sonsNum;
                 }
                 else{
-                    *(rank) = *(rank)+1;
+                    *(rank) = *(rank);
                 }
                 return;
             }
@@ -671,7 +657,7 @@ public:
         }
     }
 //find the element in index n
-    node<T>* findRankedNode(long long int n) const
+    node<T>* findRankedNode(long long int n)
     {
        return findRankedNodeAux(this->root, n);
     }
@@ -760,7 +746,7 @@ node<T>* createEmptyCompleteTreeAux (node<T>* r, long long int completeH)
     {
         return nullptr;
     }
-    r = new node<T>(nullptr);
+    r = new node<T>(nullptr,0);
     r->height=completeH;
     r->left = createEmptyCompleteTreeAux(r->left, completeH-1);
     r->right = createEmptyCompleteTreeAux(r->right, completeH-1);
@@ -840,6 +826,26 @@ void uniteTrees (AVLRankTree<T>* t1 , AVLRankTree<T>* t2, AVLRankTree<T>* destTr
     free(arr2);
     free(uniteArr);
 }
+
+//void updateAllNodesAux(node<Employee>* r , AVLRankTree<Employee>* tree)
+//{
+//    if (!r)
+//    {
+//        return;
+//    }
+//    updateAllNodesAux(r->left , tree);
+//    updateAllNodesAux(r->right , tree);
+//    tree->updateSonsNum(r);
+//    r->grade = r->data->getGrade();
+//}
+//
+//
+//void updateAllNodes(AVLRankTree<Employee>* tree)
+//{
+//    updateAllNodesAux(tree->root, tree);
+//}
+
+
 
 
 
