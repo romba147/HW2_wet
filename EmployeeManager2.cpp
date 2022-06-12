@@ -138,7 +138,7 @@ StatusType EmployeeManager::PromoteEmployee(int employeeID, int bumpGrade)
     }
     return SUCCESS;
 }
-
+//
 StatusType EmployeeManager::EmployeeSalaryIncrease(int employeeID, int salaryIncrease)
 {
     if (employeeID <=0)
