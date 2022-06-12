@@ -264,6 +264,7 @@ StatusType EmployeeManager::AverageBumpGradeBetweenSalaryByGroup(int companyID, 
     {
         return FAILURE;
     }
+    delete dummy_emplpoyee2;
     long long int total_grades = grades_below_max - grades_below_min;
     double to_return = double (total_grades)/double (total_num);
     printf("AverageBumpGradeBetweenSalaryByGroup %.1f\n" , to_return);
