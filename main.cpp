@@ -232,7 +232,7 @@ int main() {
     steve->CompanyValue(6);
     steve->CompanyValue(1);*/
 /** test 1 segel **/
- /*   auto* steve = new EmployeeManager(10);
+    auto* steve = new EmployeeManager(10);
     steve->AddEmployee (18 ,6 ,31);
     steve->AddEmployee (1, 2 ,4);
     steve->AddEmployee (499104, 2 ,15);
@@ -258,7 +258,6 @@ int main() {
     steve-> PromoteEmployee (16 ,7);
     steve->AverageBumpGradeBetweenSalaryByGroup  (5 ,2 ,6);
     steve->SumOfBumpGradeBetweenTopWorkersByGroup  (9 ,1);
-    steve->CompanyValue (10); */
-
+    steve->CompanyValue (10);
 
 }

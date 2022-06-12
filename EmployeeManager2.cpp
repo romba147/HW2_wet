@@ -94,7 +94,7 @@ StatusType EmployeeManager::AddEmployee(int employeeID, int companyID, int grade
         return FAILURE;
     }
 
-    Employee* newEmployee = new Employee(employeeID,0,grade,companyUF->find(companyID));
+    Employee* newEmployee = new Employee(employeeID, grade,0,companyUF->find(companyID));
     companyArray[0]->addEmployee(newEmployee);
     getCompany(companyID)->addEmployee(newEmployee);
 
@@ -246,7 +246,7 @@ StatusType EmployeeManager::AverageBumpGradeBetweenSalaryByGroup(int companyID, 
     auto reqCompany= getCompany(companyID);
     auto tree = reqCompany->getSalaryTree();
     ///calculate number of employees in range
-    auto* dummy_emplpoyee = new Employee(MAXID,higherSalary , 0,0);
+    auto* dummy_emplpoyee = new Employee(MAXID, 0 , higherSalary,0);
     long long int elements_below_max = tree->findRank(dummy_emplpoyee);
     long long int grades_below_max = tree->findGradesBelow(dummy_emplpoyee);
     if (lowerSalary == 0)
@@ -255,7 +255,7 @@ StatusType EmployeeManager::AverageBumpGradeBetweenSalaryByGroup(int companyID, 
         grades_below_max += (reqCompany->getGradesNum() - tree->getGradesSum());
     }
     delete dummy_emplpoyee;
-    auto* dummy_emplpoyee2 = new Employee (MINID,lowerSalary , 0,0);
+    auto* dummy_emplpoyee2 = new Employee (MINID, 0, lowerSalary,0);
     Employee *low_employee;
     long long int elements_below_min =0;
     long long int grades_below_min =0;
