@@ -222,16 +222,17 @@ int main() {
     steve->AverageBumpGradeBetweenSalaryByGroup(5,90,350); */
 
 /** check values **/
-/*    auto* steve = new EmployeeManager(10);
-    steve->AcquireCompany(5,6,1.1);
-    steve->AcquireCompany(3,2,1.6);
-    steve->CompanyValue(5);
-    steve->AcquireCompany(5,1,1);
-    steve->CompanyValue(6);
-    steve->AcquireCompany(5,7,1);
-    steve->CompanyValue(6);
-    steve->CompanyValue(1);*/
+    auto* steve = new UF(10);
+    steve->merge(4,9,1);
+    steve->merge(10,8,3);
+    steve->merge(8,7,4);
+    int a = steve->getValue(8);
+    int b = steve->getValue(7);
+    int c = steve->getValue(10);
+
+
 /** test 1 segel **/
+/*
     auto* steve = new EmployeeManager(10);
     steve->AddEmployee (18 ,6 ,31);
     steve->AddEmployee (1, 2 ,4);
@@ -259,5 +260,5 @@ int main() {
     steve->AverageBumpGradeBetweenSalaryByGroup  (5 ,2 ,6);
     steve->SumOfBumpGradeBetweenTopWorkersByGroup  (9 ,1);
     steve->CompanyValue (10);
-
+*/
 }

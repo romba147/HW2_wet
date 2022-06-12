@@ -60,20 +60,18 @@ public:
 
     void merge(int g1 , int g2, double factor)
     {
-        auto sumBumps = new double (0);
         int root1 = find(g1);
-        *sumBumps=0;
         int root2 = find(g2);
         if (root2 == root1) return;
 
             id[root2] = id[root1];
             sizes[root1] = sizes[root1] + sizes[root2];
-            bumps[g1] += factor*(values[g2]);
-            bumps[g2] -= bumps[g1];
-            values[g1] += factor*(values[g2]);
+            bumps[root1] += factor*(values[root2]);
+            bumps[root2] -= bumps[root1];
+
+        values[g1] += factor*(values[g2]);
 
         groupsNum--;
-        delete sumBumps;
     }
     int getGroupsNum() const
     {
