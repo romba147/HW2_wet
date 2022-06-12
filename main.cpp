@@ -201,7 +201,7 @@ int main() {
     steve->SumOfBumpGradeBetweenTopWorkersByGroup(5,3);
     steve->getCompany(5);
     steve->SumOfBumpGradeBetweenTopWorkersByGroup(5,1);
-    steve->SumOfBumpGradeBetweenTopWorkersByGroup(5,4);
+    steve->SumOfBumpGradeBetweenTopWorkersByGroup(5,5);
 
 
 
