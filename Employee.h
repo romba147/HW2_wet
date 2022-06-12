@@ -8,8 +8,8 @@
 
 class Employee {
     int id;
-    long long int salary;
     int grade;
+    long long int salary;
     int company;
 public:
     Employee (int id, int salary , int grade , int company) : id(id) , salary(salary) ,grade(grade),
@@ -47,7 +47,7 @@ public:
 
     Employee BumpGrade(int num){
         if (num> 0){
-            this->grade = this->grade +1;
+            this->grade = this->grade + num;
         }
         return *this;
     }

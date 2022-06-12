@@ -61,6 +61,10 @@ public:
 
     void updateCompanyAfterAcquire(Company* company);
 
+    void updateSalaryTrees (Employee* employee , int increase, Company* company , bool was_zero);
+
+    void updateGradeTrees (Employee* employee , int bump, Company* company);
+
     StatusType AddEmployee(int employeeID, int companyID, int grade);
 
     StatusType RemoveEmployee(int employeeID);

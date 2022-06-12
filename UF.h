@@ -64,22 +64,13 @@ public:
         *sumBumps=0;
         int root2 = find(g2);
         if (root2 == root1) return;
-        if (sizes[root1] > sizes[root2])
-        {
+
             id[root2] = id[root1];
             sizes[root1] = sizes[root1] + sizes[root2];
             bumps[g1] += factor*(values[g2]);
             bumps[g2] -= bumps[g1];
             values[g1] += factor*(values[g2]);
-        }
-        else
-        {
-            id[root1] = id[root2];
-            sizes[root2] = sizes[root1] + sizes[root2];
-            bumps[g2] += factor*(values[g1]);
-            bumps[g1] -= bumps[g2];
-            values[g2] += factor*(values[g1]);
-        }
+
         groupsNum--;
         delete sumBumps;
     }
