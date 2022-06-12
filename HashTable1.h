@@ -252,7 +252,7 @@ public:
         }
     }
  * */
-    void deleteHashWithData()
+    void deleteHashData()
     {
         if(table)
         {
@@ -260,12 +260,12 @@ public:
             {
                 if(table[i]) ///check if not addressing deleted lists
                 {
-                    table[i]->deleteListWithData();
-                    table[i]= nullptr;
+                    table[i]->deleteListData();
+                    //table[i]= nullptr;
                 }
             }
-            delete[] table;
-            table= nullptr;
+            //delete[] table;
+            //table = nullptr;
         }
     }
 
