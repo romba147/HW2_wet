@@ -54,6 +54,7 @@ public:
         delete companyUF;
         companyArray[0]->getEmployeesHT()->deleteHashWithData();
         delete companyArray[0];
+        delete companyArray;
 
     }
 
