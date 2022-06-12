@@ -18,12 +18,12 @@ public:
     {
         this->num = size;
         this->groupsNum = size;
-        sizes = new int[size];
-        id = new int[size];
-        bumps = new double [size];
-        values= new double [size];
+        sizes = new int[size+1];
+        id = new int[size+1];
+        bumps = new double [size+1];
+        values= new double [size+1];
 
-        for (int i=0 ; i<size ; i++)
+        for (int i=0 ; i<size+1 ; i++)
         {
             id[i] = i;
             sizes[i] = 1;
@@ -32,10 +32,10 @@ public:
     }
     ~UF()
     {
-        delete id;
-        delete sizes;
-        delete values;
-        delete bumps;
+        delete[] id;
+        delete[] sizes;
+        delete[] values;
+        delete[] bumps;
     }
 
     int find (int root)
