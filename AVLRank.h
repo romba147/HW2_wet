@@ -609,6 +609,7 @@ public:
 
         if(this->size > 0 && *(data) < *(this->smallest(this->root)->data))
         {
+            delete rank;
             return 0;
         }
         auto reqNode = findMaxNode(data);
@@ -616,6 +617,7 @@ public:
         {
             if (!root)
             {
+                delete rank;
                 return 0;
             }
             return this->root->sonsNum;

@@ -47,7 +47,7 @@ public:
 
     ~EmployeeManager()
     {
-        for (int i = 1; i < size; ++i)
+        for (int i = 1; i < size + 1; ++i)
         {
             delete companyArray[i];
         }

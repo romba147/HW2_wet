@@ -270,6 +270,7 @@ StatusType EmployeeManager::AverageBumpGradeBetweenSalaryByGroup(int companyID, 
     long long int total_num = elements_below_max - elements_below_min;
     if (total_num == 0)
     {
+        delete dummy_emplpoyee2;
         return FAILURE;
     }
     delete dummy_emplpoyee2;
