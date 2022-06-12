@@ -185,7 +185,7 @@ int main() {
 
 /** sum of bump grades **/
 
-/*    auto* steve = new EmployeeManager(10);
+    auto* steve = new EmployeeManager(10);
     steve->AddEmployee(5,5,5);
     steve->AddEmployee(6,5,6);
     steve->AddEmployee(7,5,7);
@@ -200,7 +200,10 @@ int main() {
 
     steve->SumOfBumpGradeBetweenTopWorkersByGroup(5,3);
     steve->getCompany(5);
-*/
+    steve->SumOfBumpGradeBetweenTopWorkersByGroup(5,1);
+    steve->SumOfBumpGradeBetweenTopWorkersByGroup(5,4);
+
+
 
 
 /** average grades **/
@@ -222,7 +225,7 @@ int main() {
     steve->AverageBumpGradeBetweenSalaryByGroup(5,90,350); */
 
 /** check values **/
-    auto* steve = new EmployeeManager(10);
+/*    auto* steve = new EmployeeManager(10);
     steve->AcquireCompany(5,6,1.1);
     steve->AcquireCompany(3,2,1.6);
     steve->CompanyValue(5);
@@ -230,7 +233,7 @@ int main() {
     steve->CompanyValue(6);
     steve->AcquireCompany(5,7,1);
     steve->CompanyValue(6);
-    steve->CompanyValue(1);
+    steve->CompanyValue(1);*/
 
 
 
