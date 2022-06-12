@@ -7,7 +7,7 @@
 
 #include "EmployeeManager2.h"
 
- static void updateAllNodesAux(node<Employee>* r , AVLRankTree<Employee>* tree)
+static void updateAllNodesAux(node<Employee>* r , AVLRankTree<Employee>* tree)
 {
     if (!r)
     {
@@ -20,7 +20,7 @@
 }
 
 
- static void updateAllNodes(AVLRankTree<Employee>* tree)
+static void updateAllNodes(AVLRankTree<Employee>* tree)
 {
     updateAllNodesAux(tree->root, tree);
 }
@@ -55,7 +55,7 @@ Employee *EmployeeManager::getEmployee(int id)
 }
 
 void EmployeeManager::updateSalaryTrees(Employee *employee, int increase ,
-                                            Company* company, bool was_zero)
+                                        Company* company, bool was_zero)
 {
     auto tree1 = company->getSalaryTree();
     auto tree2 = companyArray[0]->getSalaryTree();
@@ -73,8 +73,8 @@ void EmployeeManager::updateGradeTrees (Employee* employee , int bump, Company* 
     auto tree1 = company->getSalaryTree();
     auto tree2 = companyArray[0]->getSalaryTree();
 
-        tree1->deleteNode(tree1->root, employee);
-        tree2->deleteNode(tree2->root, employee);
+    tree1->deleteNode(tree1->root, employee);
+    tree2->deleteNode(tree2->root, employee);
 
     employee->BumpGrade(bump);
     tree1->insert(employee,employee->getGrade());
@@ -110,7 +110,7 @@ StatusType EmployeeManager::RemoveEmployee(int employeeID)
     }
 
     Employee* toRemoveEmp = getEmployee(employeeID);
-    if(toRemoveEmp== nullptr)
+    if(toRemoveEmp == nullptr)
     {
         return FAILURE;
     }
@@ -178,7 +178,7 @@ void EmployeeManager::updateCompanyAfterAcquire(Company* company)
 StatusType EmployeeManager::AcquireCompany(int acquirerID, int targetID, double factor)
 {
     if(acquirerID <= 0 || acquirerID > size || targetID <= 0 || targetID > size ||
-    (getCompany(acquirerID) == getCompany(targetID)) || factor <= 0.0)
+       (getCompany(acquirerID) == getCompany(targetID)) || factor <= 0.0)
     {
         return INVALID_INPUT;
     }
@@ -189,14 +189,15 @@ StatusType EmployeeManager::AcquireCompany(int acquirerID, int targetID, double 
 
     companyUF->merge(acquirerID,targetID,factor); ///did that update company values?
     unite(acquirerCompany->getEmployeesHT(),targetCompany->getEmployeesHT());
-    updateCompanyAfterAcquire(acquirerCompany);
+    updateCompanyAfterAcquire(acquirerCompany); //update sum of grades
     ///unite trees?
     ///create a new tree?
     auto* newTree = new AVLRankTree<Employee>;
     uniteTrees(acquirerCompany->getSalaryTree(),targetCompany->getSalaryTree(),newTree);
     delete acquirerCompany->getSalaryTree();
     delete targetCompany->getSalaryTree();
-    newTree->updateAllNodes();
+    updateAllNodes(newTree);
+    //
     acquirerCompany->setSalaryTree(newTree);
     return SUCCESS;
 
@@ -219,9 +220,11 @@ StatusType EmployeeManager::SumOfBumpGradeBetweenTopWorkersByGroup(int companyID
         to_return =  req_company->getSalaryTree()->root->sonsGradesSum;
     }
     auto tree = req_company->getSalaryTree();
-    int to_find = tree->size - m +1;
-    int to_return = tree->getGradesSum() - tree->findGradesBelow(tree->findRankedNode(to_find)->data);
-    printf("SumOfBumpGradeBetweenTopWorkersByGroup %d" , to_return);
+    long long int to_find = tree->size - m ;
+    if(to_return<0) {
+        to_return = tree->getGradesSum() - tree->findGradesBelow(tree->findRankedNode(to_find)->data);
+    }
+    printf("SumOfBumpGradeBetweenTopWorkersByGroup %d\n" , to_return);
     return SUCCESS;
 
 
@@ -237,7 +240,7 @@ StatusType EmployeeManager::AverageBumpGradeBetweenSalaryByGroup(int companyID, 
     auto reqCompany= getCompany(companyID);
     auto tree = reqCompany->getSalaryTree();
     ///calculate number of employees in range
-    auto* dummy_emplpoyee = new Employee (99999999,higherSalary , 0,0);
+    auto* dummy_emplpoyee = new Employee(MAXID,higherSalary , 0,0);
     long long int elements_below_max = tree->findRank(dummy_emplpoyee);
     long long int grades_below_max = tree->findGradesBelow(dummy_emplpoyee);
     if (lowerSalary == 0)
