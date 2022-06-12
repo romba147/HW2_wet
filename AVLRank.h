@@ -622,6 +622,7 @@ public:
         }
         findRankAux(this->root,reqNode->data, rank);
         long long int to_return = *rank;
+        delete rank;
         return to_return;
     }
 
@@ -693,6 +694,7 @@ public:
         auto grades = new long long int (0);
         findGradesAux(this->root,data, grades);
         long long int to_return = *grades;
+        delete grades;
         return to_return;
     }
 
