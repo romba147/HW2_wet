@@ -198,8 +198,8 @@ StatusType EmployeeManager::AcquireCompany(int acquirerID, int targetID, double 
     uniteTrees(acquirerCompany->getSalaryTree(),targetCompany->getSalaryTree(),newTree);
     delete acquirerCompany->getSalaryTree();
     delete targetCompany->getSalaryTree();
-    companyArray[targetID]->setSalaryTree(nullptr);
-    companyArray[targetID]->setHT(nullptr);
+    companyArray[targetCompany->getId()]->setSalaryTree(nullptr);
+    companyArray[targetCompany->getId()]->setHT(nullptr);
 
     updateAllNodes(newTree);
     //
