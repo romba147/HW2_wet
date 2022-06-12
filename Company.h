@@ -27,8 +27,12 @@ public:
 
     ~Company()
     {
-        delete salary_tree;
-        delete employees;
+        if (salary_tree) {
+            delete salary_tree;
+        }
+        if(employees) {
+            delete employees;
+        }
     }
 
 
@@ -58,6 +62,11 @@ public:
     void setSalaryTree(AVLRankTree<Employee>* tree)
     {
         salary_tree = tree;
+    }
+
+    void setHT(HashTable<Employee>* ht)
+    {
+        employees = ht;
     }
 
     AVLRankTree<Employee>* getSalaryTree () const {

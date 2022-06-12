@@ -185,7 +185,7 @@ int main() {
 
 /** sum of bump grades **/
 
-    auto* steve = new EmployeeManager(10);
+ /*   auto* steve = new EmployeeManager(10);
     steve->AddEmployee(5,5,5);
     steve->AddEmployee(6,5,6);
     steve->AddEmployee(7,5,7);
@@ -201,10 +201,7 @@ int main() {
     steve->SumOfBumpGradeBetweenTopWorkersByGroup(5,3);
     steve->getCompany(5);
     steve->SumOfBumpGradeBetweenTopWorkersByGroup(5,1);
-    steve->SumOfBumpGradeBetweenTopWorkersByGroup(5,5);
-
-
-
+    steve->SumOfBumpGradeBetweenTopWorkersByGroup(5,5);*/
 
 /** average grades **/
 
@@ -234,8 +231,34 @@ int main() {
     steve->AcquireCompany(5,7,1);
     steve->CompanyValue(6);
     steve->CompanyValue(1);*/
-
-
+/** test 1 segel **/
+ /*   auto* steve = new EmployeeManager(10);
+    steve->AddEmployee (18 ,6 ,31);
+    steve->AddEmployee (1, 2 ,4);
+    steve->AddEmployee (499104, 2 ,15);
+    steve->AddEmployee (-2, -2 ,33);
+    steve->AddEmployee (16, 3, 13);
+    steve->AddEmployee (13, 9 ,13);
+    steve->RemoveEmployee (1);
+    steve->RemoveEmployee (18);
+    steve-> AddEmployee (3, 10 ,39);
+    steve-> AcquireCompany (4 ,9, 1);
+    steve-> EmployeeSalaryIncrease (16, 2);
+    steve->PromoteEmployee (13, 1);
+    steve->SumOfBumpGradeBetweenTopWorkersByGroup  (4 ,1);
+    steve-> AverageBumpGradeBetweenSalaryByGroup  (4 ,-1 ,2);
+    steve-> CompanyValue (8);
+    steve-> AcquireCompany (10, 8 ,3);
+    steve-> AcquireCompany (8 ,7 ,4);
+    steve->EmployeeSalaryIncrease (499104 ,6);
+    steve->EmployeeSalaryIncrease (3 ,1);
+    steve-> PromoteEmployee (13 ,10);
+    steve->CompanyValue (8);
+    steve-> CompanyValue (7);
+    steve-> PromoteEmployee (16 ,7);
+    steve->AverageBumpGradeBetweenSalaryByGroup  (5 ,2 ,6);
+    steve->SumOfBumpGradeBetweenTopWorkersByGroup  (9 ,1);
+    steve->CompanyValue (10); */
 
 
 }

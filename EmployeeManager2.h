@@ -61,7 +61,7 @@ public:
 
     Employee* getEmployee (int  id);
 
-    void updateCompanyAfterAcquire(Company* company);
+    void updateCompanyAfterAcquire(Company* company, int newCompany);
 
     void updateSalaryTrees (Employee* employee , int increase, Company* company , bool was_zero);
 

@@ -157,10 +157,9 @@ StatusType EmployeeManager::EmployeeSalaryIncrease(int employeeID, int salaryInc
     return SUCCESS;
 }
 
-void EmployeeManager::updateCompanyAfterAcquire(Company* company)
+void EmployeeManager::updateCompanyAfterAcquire(Company* company, int newCompany)
 {
     HashTable<Employee>* empHash = company->getEmployeesHT();
-    int companyID = companyUF->find(company->getId());
 
     int newGrades=0;
     for (int i = 0; i < empHash->nCells; ++i)
@@ -168,7 +167,7 @@ void EmployeeManager::updateCompanyAfterAcquire(Company* company)
         listNode<Employee>* curNode = empHash->table[i]->head->next;
         while (curNode)
         {
-            curNode->data->setCompany(companyID);
+            curNode->data->setCompany(newCompany);
             newGrades+=curNode->data->getGrade();
             curNode=curNode->next;
         }
@@ -190,13 +189,16 @@ StatusType EmployeeManager::AcquireCompany(int acquirerID, int targetID, double 
 
     companyUF->merge(acquirerID,targetID,factor); ///did that update company values?
     unite(acquirerCompany->getEmployeesHT(),targetCompany->getEmployeesHT());
-    updateCompanyAfterAcquire(acquirerCompany); //update sum of grades
+    updateCompanyAfterAcquire(acquirerCompany,acquirerCompany->getId()); //update sum of grades
     ///unite trees?
     ///create a new tree?
     auto* newTree = new AVLRankTree<Employee>;
     uniteTrees(acquirerCompany->getSalaryTree(),targetCompany->getSalaryTree(),newTree);
     delete acquirerCompany->getSalaryTree();
     delete targetCompany->getSalaryTree();
+    companyArray[targetID]->setSalaryTree(nullptr);
+    companyArray[targetID]->setHT(nullptr);
+
     updateAllNodes(newTree);
     //
     acquirerCompany->setSalaryTree(newTree);

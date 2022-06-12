@@ -606,13 +606,18 @@ public:
     long long int findRank (T* data)
     {
         auto rank = new long long int (0);
-        if(*(data) < *(this->smallest(this->root)->data))
+
+        if(this->size > 0 && *(data) < *(this->smallest(this->root)->data))
         {
             return 0;
         }
         auto reqNode = findMaxNode(data);
         if (!reqNode)
         {
+            if (!root)
+            {
+                return 0;
+            }
             return this->root->sonsNum;
         }
         findRankAux(this->root,reqNode->data, rank);

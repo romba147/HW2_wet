@@ -257,11 +257,8 @@ public:
 template<class T>
 void unite(HashTable<T>* hBase, HashTable<T>* hAdded)
 {
-    if (hBase->nElements >= hAdded->nElements)
-    {
         hBase->addHash(hAdded);
         delete hAdded;
-    }
 //    else //hBase is smaller
 //    {
 //        hAdded->addHash(hBase);
