@@ -137,6 +137,8 @@ StatusType EmployeeManager::PromoteEmployee(int employeeID, int bumpGrade)
     {
         updateGradeTrees(req_employee,bumpGrade, companyArray[req_employee->getCompany()]);
     }
+    companyArray[req_employee->getCompany()]->bumpTotalGrade(bumpGrade);
+    companyArray[0]->bumpTotalGrade(bumpGrade);
     return SUCCESS;
 }
 //

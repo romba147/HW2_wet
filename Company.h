@@ -69,6 +69,11 @@ public:
         employees = ht;
     }
 
+    void bumpTotalGrade(int bump)
+    {
+        GradesNum += bump;
+    }
+
     AVLRankTree<Employee>* getSalaryTree () const {
         return salary_tree;
     }
