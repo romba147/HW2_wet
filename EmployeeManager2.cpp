@@ -117,6 +117,7 @@ StatusType EmployeeManager::RemoveEmployee(int employeeID)
 
     companyArray[0]->removeEmployee(toRemoveEmp);
     companyArray[toRemoveEmp->getCompany()]->removeEmployee(toRemoveEmp);
+    delete toRemoveEmp;
 
     return SUCCESS;
 }
@@ -199,6 +200,8 @@ StatusType EmployeeManager::AcquireCompany(int acquirerID, int targetID, double 
     updateAllNodes(newTree);
     //
     acquirerCompany->setSalaryTree(newTree);
+    delete companyArray[targetID];
+    companyArray[targetID] = nullptr;
     return SUCCESS;
 
 }

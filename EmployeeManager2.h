@@ -24,8 +24,6 @@ public:
 
     /** EmployeeManager Methods **/
 
-    //default c'tor:
-    EmployeeManager()=delete;
 
     //user c'tor
     EmployeeManager(int k)
@@ -49,10 +47,14 @@ public:
 
     ~EmployeeManager()
     {
-        for (int i = 0; i < size; ++i)
+        for (int i = 1; i < size; ++i)
         {
             delete companyArray[i];
         }
+        delete companyUF;
+        companyArray[0]->getEmployeesHT()->deleteHashWithData();
+        delete companyArray[0];
+
     }
 
     Company* getCompany (int n);

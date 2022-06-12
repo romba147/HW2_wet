@@ -25,6 +25,12 @@ public:
         employees = new HashTable<Employee>();
     };
 
+    ~Company()
+    {
+        delete salary_tree;
+        delete employees;
+    }
+
 
     int getId () const {
         return this->id;
@@ -57,6 +63,7 @@ public:
     AVLRankTree<Employee>* getSalaryTree () const {
         return salary_tree;
     }
+
 
     HashTable<Employee>* getEmployeesHT () const {
         return employees;

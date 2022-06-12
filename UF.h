@@ -34,6 +34,8 @@ public:
     {
         delete id;
         delete sizes;
+        delete values;
+        delete bumps;
     }
 
     int find (int root)
