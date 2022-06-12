@@ -222,6 +222,18 @@ public:
         }
     }
 
+    void deleteHashWithData()
+    {
+        for (int i = 0; i < nCells; ++i)
+        {
+            if(table[i]) ///check if not addressing deleted lists
+            {
+                table[i]->deleteListWithData();
+            }
+        }
+        delete[] table;
+    }
+
 };
 
 

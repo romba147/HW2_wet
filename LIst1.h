@@ -122,6 +122,19 @@ public:
         size=0;
     }
 
+    void deleteListWithData()
+    {
+        while (head->next)
+        {
+            listNode<T>* rmNode = head->next;
+            head->next = rmNode->next;
+            rmNode->next = nullptr;
+            delete rmNode->data;
+            delete rmNode;
+        }
+        size=0;
+    }
+
 };
 
 
