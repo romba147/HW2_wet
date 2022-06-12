@@ -46,7 +46,6 @@ public:
     {
         if (id[root] == root)
         {
-            *(sumBumps) += bumps[root];
             return root;
         }
         int to_return = findAux(id[root], sumBumps);
@@ -87,8 +86,8 @@ public:
     {
         double to_return = 0;
         auto sum = new double (0);
-        findAux(n , sum);
-        to_return =(double)n+*(sum);
+        int current_company = findAux(n , sum);
+        to_return =(double)n+*(sum) + bumps[current_company];
         delete sum;
         return to_return;
 
