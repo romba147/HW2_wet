@@ -196,6 +196,10 @@ public:
             }
         }
 
+        for (int i = 0; i < cur_nCells; ++i)
+        {
+            delete table[i];
+        }
         delete[] table;
 
         table = newTable;
