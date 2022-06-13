@@ -36,8 +36,8 @@ Company *EmployeeManager::getCompany(int n)
     {
         return nullptr;
     }
-    to_return = this->companyUF->find(n);
-    return  this->companyArray[to_return];
+    to_return = this->companyUF->find(companyUF->getAlias(n));
+    return this->companyArray[companyUF->getAlias(to_return)];
 }
 
 Employee *EmployeeManager::getEmployee(int id)
@@ -82,7 +82,7 @@ StatusType EmployeeManager::AddEmployee(int employeeID, int companyID, int grade
     }
 
 
-    Employee* newEmployee = new Employee(employeeID, grade,0,companyUF->find(companyID));
+    Employee* newEmployee = new Employee(employeeID, grade,0,companyUF->getAlias(companyID));
     companyArray[0]->addEmployee(newEmployee);
     getCompany(companyID)->addEmployee(newEmployee);
 
