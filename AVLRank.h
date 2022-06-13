@@ -546,7 +546,9 @@ public:
         auto to_return = new node<T>*;
         *(to_return) = nullptr;
         findMaxNodeAux(this->root , data , to_return);
-        return  *(to_return);
+        node<T>* to_return2 = *(to_return);
+        delete to_return;
+        return  to_return2;
     }
 //finds maximum node with data
     void findMaxNodeAux (node<T>* r , T* data , node<T>** to_return )
@@ -579,7 +581,9 @@ public:
         auto to_return = new node<T>*;
         *(to_return) = nullptr;
         findMinNodeAux(this->root , data , to_return);
-        return  *(to_return);
+        node<T>* to_return2 = *(to_return);
+        delete to_return;
+        return  to_return2;
     }
 
     void findMinNodeAux (node<T>* r , T* data, node<T>** to_return)

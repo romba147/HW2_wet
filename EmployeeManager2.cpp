@@ -298,7 +298,7 @@ StatusType EmployeeManager::AverageBumpGradeBetweenSalaryByGroup(int companyID, 
 
 StatusType EmployeeManager::CompanyValue(int companyID)
 {
-    if(companyID > this->size  || companyID < 0)
+    if(companyID > this->size  || companyID <= 0)
     {
         return INVALID_INPUT;
     }

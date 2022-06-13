@@ -110,6 +110,21 @@ public:
         return *this;
     }
 
+    int calculateGradesSum()
+    {
+        int newGrades =0;
+        for (int i = 0; i < employees->nCells; ++i)
+        {
+            listNode<Employee>* curNode = employees->table[i]->head->next;
+            while (curNode)
+            {
+                newGrades+=curNode->data->getGrade();
+                curNode=curNode->next;
+            }
+        }
+        return newGrades;
+    }
+
 
     Company& employeeGradeWasChanged(Employee* employee , int bumpGrade)
     {
