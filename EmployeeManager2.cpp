@@ -290,8 +290,9 @@ StatusType EmployeeManager::AverageBumpGradeBetweenSalaryByGroup(int companyID, 
     delete dummy_emplpoyee2;
     long long int total_grades = grades_below_max - grades_below_min;
     double to_return = double (total_grades)/double (total_num);
-    printf("AverageBumpGradeBetweenSalaryByGroup: %.1f\n", floor(10 * to_return + 0.5f) / 10);
-    ///***for submit:***  printf("AverageBumpGradeBetweenSalaryByGroup: %.1f\n" , to_return);
+    // for tests2: printf("AverageBumpGradeBetweenSalaryByGroup: %.1f\n", floor(10 * to_return + 0.5f) / 10);
+    //for submission:
+    printf("AverageBumpGradeBetweenSalaryByGroup: %.1f\n" , to_return);
     return SUCCESS;
 
 }
