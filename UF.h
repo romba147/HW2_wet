@@ -21,16 +21,16 @@ public:
         this->groupsNum = size;
         sizes = new int[size+1];
         id = new int[size+1];
+        values = new double[size+1];
         alias = new int[size+1];
         bumps = new double [size+1];
-        values= new double [size+1];
 
         for (int i=0 ; i<size+1 ; i++)
         {
             id[i] = i;
             sizes[i] = 1;
             alias[i] = i;
-            values[i] = double (i);
+            values[i] = i;
         }
     }
     ~UF()
@@ -76,15 +76,16 @@ public:
             id[root2] = id[root1];
             sizes[root1] = sizes[root1] + sizes[root2];
             bumps[root1] += factor * (values[root2]);
+            values[root1] += factor * (values[root2]);
             bumps[root2] -= bumps[root1];
-            values[root1] += factor*(values[root2]);
+            values[root2] = 0;
             alias[root2] = 0;
         }
         else {
             id[root1] = id[root2];
+            bumps[root1] += factor*(values[root2]);
             sizes[root2] = sizes[root2] + sizes[root1];
-            bumps[root1] += factor * (values[root2]);
-            values[root1] += factor*(values[root2]);
+            values[root2] = values[root1] + factor*(values[root2]);
             bumps[root1] -= bumps[root2];
             alias[root2] = alias[root1];
             alias[root1] = 0;
