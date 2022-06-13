@@ -68,19 +68,6 @@ void EmployeeManager::updateSalaryTrees(Employee *employee, int increase ,
     tree2->insert(employee,employee->getGrade());
 }
 
-void EmployeeManager::updateGradeTrees (Employee* employee , int bump, Company* company)
-{
-    auto tree1 = company->getSalaryTree();
-    auto tree2 = companyArray[0]->getSalaryTree();
-
-    tree1->deleteNode(tree1->root, employee);
-    tree2->deleteNode(tree2->root, employee);
-
-    employee->BumpGrade(bump);
-    tree1->insert(employee,employee->getGrade());
-    tree2->insert(employee,employee->getGrade());
-}
-
 
 
 StatusType EmployeeManager::AddEmployee(int employeeID, int companyID, int grade)
@@ -93,6 +80,7 @@ StatusType EmployeeManager::AddEmployee(int employeeID, int companyID, int grade
     {
         return FAILURE;
     }
+
 
     Employee* newEmployee = new Employee(employeeID, grade,0,companyUF->find(companyID));
     companyArray[0]->addEmployee(newEmployee);
@@ -122,20 +110,42 @@ StatusType EmployeeManager::RemoveEmployee(int employeeID)
     return SUCCESS;
 }
 
+void EmployeeManager::updateGradeTrees (Employee* employee , int bump, Company* company)
+{
+    auto tree1 = company->getSalaryTree();
+    auto tree2 = companyArray[0]->getSalaryTree();
+
+    tree1->deleteNode(tree1->root, employee);
+    tree2->deleteNode(tree2->root, employee);
+
+    employee->BumpGrade(bump);
+    tree1->insert(employee,employee->getGrade());
+    tree2->insert(employee,employee->getGrade());
+}
+
 StatusType EmployeeManager::PromoteEmployee(int employeeID, int bumpGrade)
 {
     if (employeeID <=0)
     {
         return INVALID_INPUT;
     }
+
     Employee* req_employee = getEmployee(employeeID);
     if (req_employee == nullptr)
     {
         return FAILURE;
     }
+    if(bumpGrade<=0)
+    {
+        return SUCCESS;
+    }
     if (req_employee->getSalary() > 0)
     {
         updateGradeTrees(req_employee,bumpGrade, companyArray[req_employee->getCompany()]);
+    }
+    else
+    {
+        req_employee->BumpGrade(bumpGrade);
     }
     companyArray[req_employee->getCompany()]->bumpTotalGrade(bumpGrade);
     companyArray[0]->bumpTotalGrade(bumpGrade);
@@ -280,7 +290,8 @@ StatusType EmployeeManager::AverageBumpGradeBetweenSalaryByGroup(int companyID, 
     delete dummy_emplpoyee2;
     long long int total_grades = grades_below_max - grades_below_min;
     double to_return = double (total_grades)/double (total_num);
-    printf("AverageBumpGradeBetweenSalaryByGroup: %.1f\n" , to_return);
+    printf("AverageBumpGradeBetweenSalaryByGroup: %.1f\n", floor(10 * to_return + 0.5f) / 10);
+    ///***for submit:***  printf("AverageBumpGradeBetweenSalaryByGroup: %.1f\n" , to_return);
     return SUCCESS;
 
 }

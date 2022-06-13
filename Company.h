@@ -71,7 +71,10 @@ public:
 
     void bumpTotalGrade(int bump)
     {
-        GradesNum += bump;
+        if(bump>0)
+        {
+            GradesNum += bump;
+        }
     }
 
     AVLRankTree<Employee>* getSalaryTree () const {

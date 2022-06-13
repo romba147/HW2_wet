@@ -620,6 +620,7 @@ public:
                 delete rank;
                 return 0;
             }
+            delete rank;
             return this->root->sonsNum;
         }
         findRankAux(this->root,reqNode->data, rank);
