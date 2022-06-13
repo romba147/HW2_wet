@@ -36,7 +36,7 @@ public:
         table = new List<T>*[MIN_HASH_SIZE];
         nCells = MIN_HASH_SIZE;
         ///do we need this loop?
-        for (int i = 0; i < nCells; ++i)
+        for (long long int i = 0; i < nCells; ++i)
         {
             table[i] = new List<T>();
         }
@@ -49,7 +49,7 @@ public:
     {
         table = new List<T>*[nCells];
         ///do we need this loop?
-        for (int i = 0; i < nCells; ++i)
+        for (long long int i = 0; i < nCells; ++i)
         {
             table[i] = new List<T>();
         }
@@ -61,7 +61,7 @@ public:
         ///this->clear(); ///do we need this? or use just the line below?
         if(table)
         {
-            for (int i = 0; i < nCells; ++i)
+            for (long long int i = 0; i < nCells; ++i)
             {
                 if(table[i])
                 {
@@ -74,9 +74,9 @@ public:
         }
     }
 
-    int hashFunc(T* const data) const //changed return type from listNode<T>* to int
+    long long int hashFunc(T* const data) const //changed return type from listNode<T>* to long long int
     {
-        return *(data) % nCells;  ///not sure if to do modulo on *(data) or int/long/ll...
+        return *(data) % nCells;
     }
 
     listNode<T>* find(T* const data) const
@@ -92,7 +92,7 @@ public:
 
     HashStatus insert(T* const data)
     {
-        if (data == nullptr) ///not inserting null data
+        if (data == nullptr) //not inserting null data
         {
             return INVALID_INPUT_HASH;
         }
@@ -112,7 +112,7 @@ public:
     //for uniting knowing the end size.
     HashStatus noResizeInsert(T* const data)
     {
-        if (data == nullptr) ///not inserting null data
+        if (data == nullptr) //not inserting null data
         {
             return INVALID_INPUT_HASH;
         }
@@ -163,40 +163,40 @@ public:
 
     void expand()
     {
-        int cur_nCells = nCells;
+        long long int cur_nCells = nCells;
         nCells*=2; // hash size is changed here
         reHash(cur_nCells);
     }
 
     void shrink()
     {
-        int cur_nCells = nCells;
+        long long int cur_nCells = nCells;
         nCells/=2; // hash size is changed here
         reHash(cur_nCells);
     }
 
 
-    void reHash(int cur_nCells)
+    void reHash(long long int cur_nCells)
     {
         auto* newTable = new List<T>*[nCells];
         ///do we need this loop?
-        for (int i = 0; i < nCells; ++i)
+        for (long long int i = 0; i < nCells; ++i)
         {
             newTable[i] = new List<T>();
         }
 
-        for (int i = 0; i < cur_nCells; ++i)
+        for (long long int i = 0; i < cur_nCells; ++i)
         {
             listNode<T>* curNode = table[i]->head->next;
             while (curNode)
             {
-                int newIdx = hashFunc(curNode->data); // nCells is ok
+                long long int newIdx = hashFunc(curNode->data); // nCells is ok
                 newTable[newIdx]->insertHead(curNode->data);
                 curNode = curNode->next;
             }
         }
 
-        for (int i = 0; i < cur_nCells; ++i)
+        for (long long int i = 0; i < cur_nCells; ++i)
         {
             delete table[i];
         }
@@ -210,7 +210,7 @@ public:
     //havn't used clear - don't think we need it..
     void clear()
     {
-        for (int i = 0; i < nCells; ++i)
+        for (long long int i = 0; i < nCells; ++i)
         {
             assert(table[i]); ///for debugging
             table[i]->clear();
@@ -221,42 +221,22 @@ public:
     void addHash(HashTable<T>* hAdded)
     {
 
-        for (int i = 0; i < hAdded->nCells; ++i)
+        for (long long int i = 0; i < hAdded->nCells; ++i)
         {
             listNode<T>* curNode = hAdded->table[i]->head->next;
             while (curNode)
             {
                 insert(curNode->data);
-                //int newIdx = hashFunc(curNode->data); // nCells is ok
-                //table[newIdx]->insertHead(curNode->data);
                 curNode = curNode->next;
             }
         }
     }
-/*
- *     ~HashTable()
-    {
-        ///this->clear(); ///do we need this? or use just the line below?
-        if(table)
-        {
-            for (int i = 0; i < nCells; ++i)
-            {
-                if(table[i])
-                {
-                    delete table[i];
-                    table[i] = nullptr;
-                }
-            }
-            delete[] table;
-            table = nullptr;
-        }
-    }
- * */
+
     void deleteHashData()
     {
         if(table)
         {
-            for (int i = 0; i < nCells; ++i)
+            for (long long int i = 0; i < nCells; ++i)
             {
                 if(table[i]) ///check if not addressing deleted lists
                 {
@@ -277,8 +257,8 @@ public:
 //void swapHashes(HashTable<T>* hBase, HashTable<T>* hAdded)
 //{
 //    List<T>** tempTable = hBase->table;
-//    int tempNElements = hBase->nElements;
-//    int tempNCells = hBase->nCells;
+//    long long int tempNElements = hBase->nElements;
+//    long long int tempNCells = hBase->nCells;
 //
 //    hBase->table = hAdded->table;
 //    hBase->nCells = hAdded->nCells;
@@ -294,12 +274,6 @@ void unite(HashTable<T>* hBase, HashTable<T>* hAdded)
 {
         hBase->addHash(hAdded);
         delete hAdded;
-//    else //hBase is smaller
-//    {
-//        hAdded->addHash(hBase);
-//        swapHashes(hBase, hAdded);
-//        delete hAdded;
-//    }
 }
 
 ///not checked
@@ -314,8 +288,8 @@ void unite(HashTable<T>* hBase, HashTable<T>* hAdded)
 template<class T>
 void unite(HashTable<T>* hBase, HashTable<T>* hAdded)
 {
-    int newNElements = hBase->nElements + hAdded->nElements;
-    int newNCells = MIN_HASH_SIZE;
+    long long int newNElements = hBase->nElements + hAdded->nElements;
+    long long int newNCells = MIN_HASH_SIZE;
     while (newNElements>=newNCells)
     {
         newNCells *= 2;
@@ -323,28 +297,28 @@ void unite(HashTable<T>* hBase, HashTable<T>* hAdded)
 
     HashTable<T>* hNew= new HashTable<T>*(newNCells);
     ///do we need this loop?
-    for (int i = 0; i < newNCells; ++i)
+    for (long long int i = 0; i < newNCells; ++i)
     {
         hNew->table[i] = new List<T>();
     }
 
-    for (int i = 0; i < hBase; ++i)
+    for (long long int i = 0; i < hBase; ++i)
     {
         listNode<T>* curNode = hBase->table[i]->head->next;
         while (curNode)
         {
-            int newIdx = hNew->hashFunc(curNode->data); // nCells is ok
+            long long int newIdx = hNew->hashFunc(curNode->data); // nCells is ok
             hNew->table[newIdx]->insertHead(curNode->data);
             curNode = curNode->next;
         }
     }
 
-    for (int i = 0; i < hAdded; ++i)
+    for (long long int i = 0; i < hAdded; ++i)
     {
         listNode<T>* curNode = hAdded->table[i]->head->next;
         while (curNode)
         {
-            int newIdx = hNew->hashFunc(curNode->data); // nCells is ok
+            long long int newIdx = hNew->hashFunc(curNode->data); // nCells is ok
             hNew->table[newIdx]->insertHead(curNode->data);
             curNode = curNode->next;
         }

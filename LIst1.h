@@ -33,7 +33,7 @@ class List
 public:
     /** List Members **/
     listNode<T>* head;
-    int size;      //is int ok? "big numbers". I guess yes
+    long long int size;
     //do we need other members?
     //friend class HashTable;
 

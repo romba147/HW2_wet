@@ -18,10 +18,10 @@ struct node {
     T *data;
     long long int sonsNum;
     long long int sonsGradesSum;
-    int grade;
+    long long int grade;
     long long int height;
 
-    explicit node(T* data, int grade = 0) : data (data), sonsGradesSum(grade), grade(grade)
+    explicit node(T* data, long long int grade = 0) : data (data), sonsGradesSum((long long int)grade), grade((long long int)grade)
     {
         left = nullptr;
         right = nullptr;
@@ -34,7 +34,7 @@ template <class T>
 class AVLRankTree {
 public:
     node<T> * root;
-    int size;
+    long long int size;
 
     AVLRankTree() {
         this->root = nullptr;
@@ -169,12 +169,12 @@ public:
         return top2;
     }
 
-    node<T>* insert (T* data , int grade)
+    node<T>* insert (T* data , long long int grade)
     {
         return insertAux(root,data , grade);
     }
 
-    node<T>* insertAux (node<T>* r,T* data , int grade)
+    node<T>* insertAux (node<T>* r,T* data , long long int grade)
     {
         if (!r){
             auto* newNode = new node<T>(data, grade);
@@ -241,7 +241,7 @@ public:
     }
 
     node<T>* deleteNode (node<T>* r , T* data) {
-        ///added this condition. if there are problems with delete - check here
+        //added this condition. if there are problems with delete - check here
         if (r == nullptr)
         {
             return nullptr;
@@ -334,7 +334,7 @@ public:
 
     //inorder - calling the function creates an array using malloc
     //if no need to limit array size - insert tree size as max
-    T** inorderArray (long long int max ) const
+    T** inorderArray (long long int max) const
     {
         long long int counter=0;
         T** arr = (T**)malloc(max*sizeof(T*));
@@ -394,7 +394,7 @@ public:
         return arr2;
     }
 
-    void smartInorderArrayAux (node<T>* r, T* arr[], int* counter , T* min , T* max) const {
+    void smartInorderArrayAux (node<T>* r, T* arr[], int* counter , T* min , T* max) const { ///omer: didn't change to long long int..
         if (!r) {
             return;
         }
@@ -769,7 +769,7 @@ node<T>* createEmptyCompleteTreeAux (node<T>* r, long long int completeH)
 
 
 template<class T>
-///gets pointer to tree - with no nodes
+//gets pointer to tree - with no nodes
 void createEmptyCompleteTree (AVLRankTree<T>* completeTree ,long long int completeH)
 {
     completeTree->root = createEmptyCompleteTreeAux(completeTree->root, completeH);
@@ -777,7 +777,7 @@ void createEmptyCompleteTree (AVLRankTree<T>* completeTree ,long long int comple
 }
 
 template<class T>
-///needs to get ptr to tree - with no nodes
+//needs to get ptr to tree - with no nodes
 void createEmptyNearlyCompleteTree (AVLRankTree<T>* emptyTree, long long int finalSize)
 {
     long long int newH= ceil(log2(finalSize+1))-1;

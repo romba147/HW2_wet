@@ -7,7 +7,7 @@
 
 
 class UF {
-    int num;
+    int num; ///not accessed
     int* sizes;
     int* id;
     int* alias;
@@ -25,20 +25,23 @@ public:
         alias = new int[size+1];
         bumps = new double [size+1];
 
-        for (int i=0 ; i<size+1 ; i++)
+        for (int i=0 ; i<(long int)size+1 ; i++) ///omer: changed to long int (max int input)
         {
             id[i] = i;
             sizes[i] = 1;
             alias[i] = i;
             values[i] = i;
+            bumps[i] = 0;
         }
     }
+
     ~UF()
     {
         delete[] id;
         delete[] sizes;
         delete[] values;
         delete[] bumps;
+        delete[] alias;
     }
 
     int find (int root)
@@ -69,9 +72,15 @@ public:
 
     void merge(int g1 , int g2, double factor)
     {
+        //root1 acquire root2
+        //B is placed on A
+        //root1 == B, root2 == A
         int root1 = find(g1);
         int root2 = find(g2);
-        if (root2 == root1) return;
+        if (root2 == root1)
+        {
+            return;
+        }
         if (sizes[root1] >= sizes[root2]) {
             id[root2] = id[root1];
             sizes[root1] = sizes[root1] + sizes[root2];
@@ -110,6 +119,7 @@ public:
         delete sum;
         return to_return;
     }
+
 };
 
 

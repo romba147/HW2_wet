@@ -10,7 +10,7 @@
 #include "UF.h"
 #include "AVLRank.h"
 #include "Employee.h"
-#include "library2.h"
+#include "library2.h" ///need to change? lib2 not including employeeManager?
 
 class EmployeeManager
 {
@@ -20,20 +20,19 @@ public:
     Company** companyArray;
     UF* companyUF;
     //Company* systemCompany;
-    int size;
+    int size; ///omer: didn't change - cause given as int from user and not changed
 
     /** EmployeeManager Methods **/
 
 
     //user c'tor
-    EmployeeManager(int k)
+    explicit EmployeeManager(int k)
     {
         size = k;
-
         //init companyArray
         //element 0 is the general company
-        companyArray = new Company*[k+1];
-        for (int i = 0; i < k+1; ++i)
+        companyArray = new Company*[(long int)k+1];
+        for (int i = 0; i < (long int)k+1; ++i) ///omer: changed to long int in case of choosing max int
         {
             companyArray[i] = new Company(i,i);
         }
@@ -47,7 +46,7 @@ public:
 
     ~EmployeeManager()
     {
-        for (int i = 1; i < size + 1; ++i)
+        for (int i = 1; i < (long int)size + 1; ++i)
         {
             delete companyArray[i];
         }

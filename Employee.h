@@ -8,11 +8,11 @@
 
 class Employee {
     int id;
-    int grade;
-    long long int salary;
+    long long int grade; ///omer: changed to long long
+    long long int salary; ///omer: changed back to int
     int company;
 public:
-    Employee (int id, int grade , int salary , int company) : id(id) , grade(grade) , salary(salary),
+    Employee (int id, long long int grade , long long int salary , int company) : id(id) , grade(grade) , salary(salary),
     company(company){};
 
     bool operator == (const Employee& emp1) const {
@@ -25,12 +25,12 @@ public:
         return this->id;
     }
 
-    int getSalary () const
+    long long int getSalary () const
     {
         return salary;
     }
 
-    int getGrade () const
+    long long int getGrade () const
     {
         return grade;
     }
@@ -47,13 +47,13 @@ public:
 
     Employee BumpGrade(int num){
         if (num> 0){
-            this->grade = this->grade + num;
+            this->grade = this->grade + (long long int)num;
         }
         return *this;
     }
 
     Employee IncreaseSalary(int num) {
-        this->salary = this->salary + num;
+        this->salary = this->salary + (long long int)num;
         return *this;
     }
 
@@ -78,8 +78,6 @@ public:
         return (this->id % num);
     }
 };
-
-
 
 
 #endif //HW2_WET_EMPLOYEE_H

@@ -173,8 +173,8 @@ void EmployeeManager::updateCompanyAfterAcquire(Company* company, int newCompany
 {
     HashTable<Employee>* empHash = company->getEmployeesHT();
 
-    int newGrades=0;
-    for (int i = 0; i < empHash->nCells; ++i)
+    long long int newGrades=0;
+    for (long long int i = 0; i < empHash->nCells; ++i)
     {
         listNode<Employee>* curNode = empHash->table[i]->head->next;
         while (curNode)
@@ -302,7 +302,8 @@ StatusType EmployeeManager::CompanyValue(int companyID)
     {
         return INVALID_INPUT;
     }
-    double to_return =this->companyUF->getValue(companyID);
+    double to_return = 0;
+    to_return = this->companyUF->getValue(companyID);
     printf("CompanyValue: %.1f\n" , to_return);
     return SUCCESS;
 }

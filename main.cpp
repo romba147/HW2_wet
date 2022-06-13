@@ -1,6 +1,6 @@
 #include <iostream>
-#include "UF.h"
-#include "AVLRank.h"
+//#include "UF.h"
+//#include "AVLRank.h"
 #include "EmployeeManager2.h"
 
 int main() {
@@ -64,7 +64,8 @@ int main() {
 
 /** TESTING EMPLOYEE MANAGER **/
 /*
-////   add employee testing:
+
+    //add employee testing:
     auto* steve = new EmployeeManager(10);
     steve->AddEmployee(5,5,5);
     steve->AddEmployee(6,5,5);
@@ -77,22 +78,25 @@ int main() {
     steve->AddEmployee(12,3,5);
     steve->AddEmployee(13,4,5);
 
-    auto check = steve->getCompany(5);
-    auto check2 = steve->getCompany(0);
-    auto check3 = steve->getCompany(3);
-    auto check4 = steve->getCompany(4);
-    auto checkr = steve->getCompany(5);
+    steve->getCompany(5);
+    steve->getCompany(0);
+    steve->getCompany(3);
+    steve->getCompany(4);
+    steve->getCompany(5);
+    delete steve;
 
-   auto* steve = new EmployeeManager(10);
-    steve->AddEmployee(5,5,5);
-    steve->AddEmployee(6,5,5);
-    steve->AddEmployee(7,5,5);
-    steve->AddEmployee(8,5,5);
-    steve->AddEmployee(9,5,5);*/
+    //auto* steve = new EmployeeManager(10);
+    //steve->AddEmployee(5,5,5);
+    //steve->AddEmployee(6,5,5);
+    //steve->AddEmployee(7,5,5);
+    //steve->AddEmployee(8,5,5);
+    //steve->AddEmployee(9,5,5);
+
+    */
 
 /**increase salary testing **/
 /*
-   auto* steve = new EmployeeManager(10);
+    auto* steve = new EmployeeManager(10);
     steve->AddEmployee(5,5,5);
     steve->AddEmployee(6,5,5);
     steve->AddEmployee(7,5,5);
@@ -110,7 +114,9 @@ int main() {
     steve->EmployeeSalaryIncrease(6,400);
     steve->EmployeeSalaryIncrease(5,100);
     auto check2 = steve->getCompany(5);
-    steve->EmployeeSalaryIncrease(5,100);*/
+    steve->EmployeeSalaryIncrease(5,100);
+    delete steve;
+    */
 
 /** bump grade check + remove employee **/
 
@@ -142,11 +148,13 @@ int main() {
     steve->RemoveEmployee(7);
     steve->RemoveEmployee(5);
     steve->RemoveEmployee(9);
-    steve->RemoveEmployee(8);*/
+    steve->RemoveEmployee(8);
+    delete steve;
+    */
 
 /** acquire company testing **/
-
-/*    auto* steve = new EmployeeManager(10);
+/*
+    auto* steve = new EmployeeManager(10);
     steve->AddEmployee(5,5,5);
     steve->AddEmployee(6,5,5);
     steve->AddEmployee(7,5,5);
@@ -180,12 +188,14 @@ int main() {
     steve->AddEmployee(22,6,3);
     steve->EmployeeSalaryIncrease(22,70);
     steve->PromoteEmployee(22, 17);
-    steve->AddEmployee(20,6,3); */
+    steve->AddEmployee(20,6,3);
+    delete steve;
+*/
 
 
 /** sum of bump grades **/
-
- /*   auto* steve = new EmployeeManager(10);
+/*
+    auto* steve = new EmployeeManager(10);
     steve->AddEmployee(5,5,5);
     steve->AddEmployee(6,5,6);
     steve->AddEmployee(7,5,7);
@@ -201,11 +211,13 @@ int main() {
     steve->SumOfBumpGradeBetweenTopWorkersByGroup(5,3);
     steve->getCompany(5);
     steve->SumOfBumpGradeBetweenTopWorkersByGroup(5,1);
-    steve->SumOfBumpGradeBetweenTopWorkersByGroup(5,5);*/
+    steve->SumOfBumpGradeBetweenTopWorkersByGroup(5,5);
+    delete steve;
+*/
 
 /** average grades **/
-
-/*    auto* steve = new EmployeeManager(10);
+/*
+    auto* steve = new EmployeeManager(10);
     steve->AddEmployee(5,5,5);
     steve->AddEmployee(6,5,6);
     steve->AddEmployee(7,5,7);
@@ -219,16 +231,21 @@ int main() {
     steve->EmployeeSalaryIncrease(5,100);
 
     steve->AverageBumpGradeBetweenSalaryByGroup(5,150,1000);
-    steve->AverageBumpGradeBetweenSalaryByGroup(5,90,350); */
+    steve->AverageBumpGradeBetweenSalaryByGroup(5,90,350);
+    delete steve;
+*/
 
 /** check values **/
-    //auto* steve = new UF(10);
-    //steve->merge(4,9,1);
-    //steve->merge(10,8,3);
-    //steve->merge(8,7,4);
-    //int a = steve->getValue(8);
-    //int b = steve->getValue(7);
-    //int c = steve->getValue(10);
+/*
+    auto* steve = new UF(10);
+    steve->merge(4,9,1);
+    steve->merge(10,8,3);
+    steve->merge(8,7,4);
+    int a = steve->getValue(8);
+    int b = steve->getValue(7);
+    int c = steve->getValue(10);
+    delete steve;
+*/
 
 
 /** test 1 segel **/
@@ -1003,8 +1020,8 @@ int main() {
     */
 
     /** test 0 tests2 - check companyValue 59 - 10608 **/
+
     auto* steve = new EmployeeManager(100);
-    //
     std::cout <<"0 :"<< std::endl;
     steve->CompanyValue(16);
     steve->CompanyValue(79);
@@ -1014,6 +1031,7 @@ int main() {
     steve->CompanyValue(59);
 
     steve->AcquireCompany( 9, 77, 1.0);
+
     std::cout <<"1 :"<< std::endl;
     steve->CompanyValue(16);
     steve->CompanyValue(79);
@@ -1057,8 +1075,7 @@ int main() {
     steve->CompanyValue(96);
     steve->CompanyValue(9);
     steve->CompanyValue(59);
-
-
-
-
+    //small company purchasing big - bumps and values.
+    //should we consider value.
+    delete steve;
 }

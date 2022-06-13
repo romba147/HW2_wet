@@ -14,12 +14,12 @@
 class Company {
     int id;
     long long int GradesNum;
-    float value;
+    double value;
     AVLRankTree<Employee>* salary_tree;
     HashTable<Employee>* employees;
 
 public:
-    Company(int id , float value) : id(id) , value(value) {
+    Company(int id , double value) : id(id) , value(value) {
         GradesNum=0;
         salary_tree = new AVLRankTree<Employee>();
         employees = new HashTable<Employee>();
@@ -27,12 +27,12 @@ public:
 
     ~Company()
     {
-        if (salary_tree) {
+        //if (salary_tree) {   ///omer: deleted because clion said
             delete salary_tree;
-        }
-        if(employees) {
+        //}
+        //if(employees) {      ///omer: deleted because clion said
             delete employees;
-        }
+        //}
     }
 
 
@@ -45,7 +45,7 @@ public:
         return this->employees->nElements;
     }
 
-    float getValue () const
+    double getValue () const
     {
         return value;
     }
@@ -69,7 +69,7 @@ public:
         employees = ht;
     }
 
-    void bumpTotalGrade(int bump)
+    void bumpTotalGrade(int bump) ///omer: didn't change to long long int - because the argument is int - given from user.
     {
         if(bump>0)
         {
@@ -86,7 +86,7 @@ public:
         return employees;
     }
 
-    Company& setValue(float num)
+    Company& setValue(double num)
     {
         value = num;
         return *this;
@@ -110,6 +110,7 @@ public:
         return *this;
     }
 
+    /*
     int calculateGradesSum()
     {
         int newGrades =0;
@@ -124,9 +125,10 @@ public:
         }
         return newGrades;
     }
+     */
 
 
-    Company& employeeGradeWasChanged(Employee* employee , int bumpGrade)
+    Company& employeeGradeWasChanged(Employee* employee , int bumpGrade) ///omer: what is this? not used
     {
         if (employee->getSalary() > 0)
         {
