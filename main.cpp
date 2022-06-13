@@ -1004,7 +1004,7 @@ int main() {
 
     /** test 0 tests2 - check companyValue 59 - 10608 **/
     auto* steve = new EmployeeManager(100);
-
+    //
     std::cout <<"0 :"<< std::endl;
     steve->CompanyValue(16);
     steve->CompanyValue(79);

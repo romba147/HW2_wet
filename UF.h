@@ -69,7 +69,7 @@ public:
             bumps[root1] += factor*(values[root2]);
             bumps[root2] -= bumps[root1];
 
-        values[g1] += factor*(values[g2]);
+        values[root1] += factor*(values[root2]);
 
         groupsNum--;
     }
